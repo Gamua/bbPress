@@ -1,0 +1,6 @@
+# config contains passwords ...
+bb-config.php
+
+# OS X folders
+.DS_Store
+
