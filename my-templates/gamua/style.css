@@ -492,11 +492,13 @@ input#tagformsub:active {
 #thread li {
 	line-height: 1.6em;
 	clear: both;
-	/* Hack to force padding on .threadauthor on IE */
-	border-top: 1px solid #fff;
 }
 
-#thread li ol, #thread li ul { margin-left: 40px; }
+#thread li ol, #thread li ul 
+{ 
+    margin-left: 40px; 
+    margin-bottom: 1.1em;
+}
 
 #thread li ol li, #thread li ul li { padding: 0; }
 
