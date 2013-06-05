@@ -121,7 +121,8 @@ $bb_syntax_token = md5(uniqid(rand()));
 
 // information on how to use it
 function add_content_post_form(){
-	echo '<p>Surround ActionScript code with <strong>'.htmlentities('<pre lang="as3">...</pre>').'</strong></p>';
+    echo '<p>Surround source code with <strong>'.htmlentities('<pre lang="x">...</pre>') . 
+         '</strong> (where x can be <strong>"as3"</strong>, <strong>"objc"</strong>, etc.)</p>';
 }
 
 add_action('post_form', 'add_content_post_form', 1);
