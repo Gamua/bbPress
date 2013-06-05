@@ -1599,7 +1599,9 @@ function bb_get_new_topic_link( $args = null ) {
 	$args = wp_parse_args( $args, $defaults );
 	extract( $args, EXTR_SKIP );
 
-	if ( $forum && $forum = bb_get_forum( $forum ) )
+	if ( bb_is_front() || bb_get_forum_is_category() )
+		$url = bb_get_uri(null, array('new' => 1));
+	elseif ( $forum && $forum = bb_get_forum( $forum ) )
 		$url = get_forum_link( $forum->forum_id ) . '#postform';
 	elseif ( $tag && $tag = bb_get_tag( $tag ) )
 		$url = bb_get_tag_link( $tag->tag ) . '#postform';
@@ -1611,8 +1613,6 @@ function bb_get_new_topic_link( $args = null ) {
 		$url = bb_get_tag_link( $tag ) . '#postform';
 	} elseif ( bb_is_topic() )
 		$url = get_forum_link() . '#postform';
-	elseif ( bb_is_front() )
-		$url = bb_get_uri(null, array('new' => 1));
 
 	if ( !bb_is_user_logged_in() && bb_is_login_required() )
 		$url = bb_get_uri('bb-login.php', array('redirect_to' => $url), BB_URI_CONTEXT_A_HREF + BB_URI_CONTEXT_BB_USER_FORMS);
