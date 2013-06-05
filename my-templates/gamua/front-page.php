@@ -1,8 +1,8 @@
 <?php bb_get_header(); ?>
 
-<div class="bbcrumb"><a href="<?php bb_uri(); ?>"><?php bb_option('name'); ?></a> &raquo; <?php _e('Front Page')?></div>
-
 <?php if ( $forums ) : ?>
+
+<div class="bbcrumb"><a href="<?php bb_uri(); ?>"><?php bb_option('name'); ?></a> &raquo; <?php _e('Front Page')?></div>
 
 <div id="hottags" role="main">
 <h2><?php _e('Hot Tags'); ?></h2>
