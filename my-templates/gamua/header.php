@@ -13,6 +13,7 @@ if ( bb_is_profile() ) {
 	<meta http-equiv="X-UA-Compatible" content="IE=8" />
 	<meta name="google-site-verification" content="9mnrTPsE6rw-r6mFmLc1Fkf0wbcCeLtuKrNoLwZ3qRk" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=790">
 	<title><?php bb_title() ?></title>
 	<link rel="shortcut icon" href="<?php bb_option('uri'); ?>favicon.ico" type="image/vnd.microsoft.icon" />
 	<link rel="stylesheet" href="<?php bb_stylesheet_uri(); ?>" type="text/css" />

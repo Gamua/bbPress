@@ -613,7 +613,12 @@ input#tagformsub:active {
 	text-transform: uppercase;
 }
 
-.num, #forumlist small {
+#forumlist small {
+    font-size: 11px;
+    -webkit-text-size-adjust: 120%;
+}
+
+.num {
 	font-size: 11px;
 	text-align: center;
 	white-space: nowrap;
