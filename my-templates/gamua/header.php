@@ -35,8 +35,19 @@ bb_head();
 $forum_name_parts = explode(" ", strtolower(bb_get_option('name')));
 $forum_name = $forum_name_parts[0];
 $image_folder = bb_get_active_theme_uri() . "images/" . $forum_name;
+$header_color; $piwik_id;
 
-$header_color = $forum_name == "starling" ? "#c14140" : "#296ac1";
+if ($forum_name == "starling")
+{
+  $header_color = "#c14140";
+  $piwik_id = 5;
+}
+else // sparrow
+{
+  $header_color = "#296ac1";
+  $piwik_id = 4;
+}
+
 $header_style = "background-color: " . $header_color . "; " . 
                 "background-image: url(" . $image_folder . "/header_bg.jpg);";
 $logo_style   = "background-image: url(" . $image_folder . "/header_logo.png);";
@@ -47,7 +58,30 @@ $logo_style   = "background-image: url(" . $image_folder . "/header_logo.png);";
 
 </head>
 <body id="<?php bb_location(); ?>">
-	<div id="wrapper">
+	
+  <!-- Piwik Analytics -->
+  <script type="text/javascript">
+    var _paq = _paq || [];
+
+    (function () {
+        var siteId = <?php echo $piwik_id ?>;
+        var piwikBaseUrl = (("https:" == document.location.protocol) ? "https://analytics.gamua.com/" : "http://analytics.gamua.com/");
+
+        _paq.push(['setSiteId', siteId]);
+        _paq.push(['setTrackerUrl', piwikBaseUrl + 'piwik.php']);
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+
+        var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+        g.type = 'text/javascript';
+        g.defer = true;
+        g.async = true;
+        g.src = piwikBaseUrl + 'piwik.js';
+        s.parentNode.insertBefore(g, s);
+    })();
+  </script>
+
+  <div id="wrapper">
 		
 	  <div class="stylehead" style="<?php echo $header_style ?>">
       <div class="header_row">
