@@ -106,7 +106,7 @@ global $bb_smilies, $bb_smilies_search, $bb_smilies_replace, $bb_smilies_prep;
 if (empty($bb_smilies_prep)) {bb_smilies_init();}
 
 $counter=0;  // filter out all backtick code first
-if (preg_match_all("|\<code\>(.*?)\<\/code\>|sim", $text, $backticks)) {foreach ($backticks[0] as $backtick) {++$counter; $text=str_replace($backtick,"_bb_smilies_".$counter."_",$text);}}
+if (preg_match_all("#\<(code|pre[^\>]+)\>(.*?)\<\/(code|pre)\>#sim", $text, $backticks)) {foreach ($backticks[0] as $backtick) {++$counter; $text=str_replace($backtick,"_bb_smilies_".$counter."_",$text);}}
 
 $textarr = preg_split("/(<.*>)/U", $text, -1, PREG_SPLIT_DELIM_CAPTURE); 
 $stop = count($textarr); 
