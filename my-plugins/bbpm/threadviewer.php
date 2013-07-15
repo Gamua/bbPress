@@ -295,7 +295,7 @@ jQuery(function($){
 });
 </script>
 
-<?php if ( $bbpm->settings['static_reply'] ) { ?>
+
 <div id="static-respond">
 <h2 id="reply"><?php _e( 'Reply', 'bbpm' ); ?></h2>
 <form class="postform pm-form" method="post" action="<?php echo BB_PLUGIN_URL . basename( dirname( __FILE__ ) ) . '/pm.php'; ?>">
@@ -319,4 +319,4 @@ jQuery(function($){
 </fieldset>
 </form>
 </div>
-<?php } ?>
+
