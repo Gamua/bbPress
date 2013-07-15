@@ -5,7 +5,7 @@ Description:  Adds clickable smilies (emoticons) to bbPress.  No template edits 
 Plugin URI:  http://bbpress.org/plugins/topic/121
 Author: _ck_
 Author URI: http://bbShowcase.org
-Version: 0.0.8
+Version: 0.0.2
 */
 
 $bb_smilies['icon_set']="default";  // change this to the exact directory name (case sensitive) if you want to switch icon package sets
@@ -50,7 +50,17 @@ bbClicker.style.visibility='hidden';
 }	
 
 function bb_smilies_init() {
-if (typeof bbField == 'undefined') {bbField = document.getElementsByTagName('textarea')[0];}
+if (typeof bbField != 'undefined') return;
+
+var textarea_elements = document.getElementsByTagName('textarea');
+for (i=0; i<textarea_elements.length; i++) {
+	var textarea = textarea_elements[i];
+	if (textarea.className != 'no-smilies') {
+		bbField = textarea;
+		break;
+	}
+}
+
 if (bbField) { 
 	bb_smilies_html='";
 	echo '<img  onclick="bb_smilies_panel()" src="'. $bb_smilies['icon_url'] . $wp_smilies[":)"] .'" title="'.__('Insert Smilies').'" class="bb_smilies" /> ';
@@ -103,10 +113,14 @@ function bb_smilies_panel() {
 function bb_smilies_convert($text) {
 global $bb_smilies, $bb_smilies_search, $bb_smilies_replace, $bb_smilies_prep;
 
+//echo("<!-- ABCDE: " . $text . " -->");
+
+
+
 if (empty($bb_smilies_prep)) {bb_smilies_init();}
 
 $counter=0;  // filter out all backtick code first
-if (preg_match_all("|\<code\>(.*?)\<\/code\>|sim", $text, $backticks)) {foreach ($backticks[0] as $backtick) {++$counter; $text=str_replace($backtick,"_bb_smilies_".$counter."_",$text);}}
+if (preg_match_all("#\<(code|pre[^\>]+)\>(.*?)\<\/(code|pre)\>#sim", $text, $backticks)) {foreach ($backticks[0] as $backtick) {++$counter; $text=str_replace($backtick,"_bb_smilies_".$counter."_",$text);}}
 
 $textarr = preg_split("/(<.*>)/U", $text, -1, PREG_SPLIT_DELIM_CAPTURE); 
 $stop = count($textarr); 
