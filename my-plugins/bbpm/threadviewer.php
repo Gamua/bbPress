@@ -1,12 +1,14 @@
 <?php
 /**
  * @package bbPM
- * @version 1.0.1
+ * @version 1.0.2
  * @author Nightgunner5
  * @license http://www.gnu.org/licenses/gpl-3.0.txt GNU General Public License, Version 3 or higher
  */
 
 global $bbpm, $the_pm, $bb_post;
+
+$user_id = (int)bb_get_current_user_info('ID');
 
 $bb_post = true; // Hax
 
@@ -16,6 +18,9 @@ $messagechain = $bbpm->get_thread( $get );
 $members = $bbpm->get_thread_members( $get );
 $bbpm->mark_read( $get );
 /* printf( 'Thread ID: %1$s', $get ); */
+
+$user_is_topic_starter = ($user_id == $messagechain[0]->from->ID);
+$can_edit_others_tags = bb_current_user_can('edit_others_tags');
 
 $voices = array();
 foreach ( $messagechain as $pm ) {
@@ -47,15 +52,15 @@ add_filter( 'get_post_author_id', array( &$bbpm, 'post_author_id_filter' ) );
 
 foreach ( $members as $member ) {
 	if ( isset( $voices[$member] ) )
-		echo '<li><a href="' . get_user_profile_link( $member ) . '">' . get_user_display_name( $member ) . '</a></li>';
+		echo '<li><a href="' . get_user_profile_link( $member ) . '">' . get_user_display_name( $member ) . '</a>' . (($user_id != $member && ($user_is_topic_starter || $can_edit_others_tags))?' [<a href="' . $bbpm->thread_remove_member_url(get_user_display_name( $member ), $get) . '">x</a>] ':'') . '</li>';
 	else
-		echo '<li><em><a href="' . get_user_profile_link( $member ) . '">' . get_user_display_name( $member ) . '</a></em></li>';
+		echo '<li><em><a href="' . get_user_profile_link( $member ) . '">' . get_user_display_name( $member ) . '</a></em>' . (($user_id != $member && ($user_is_topic_starter || $can_edit_others_tags))?' [<a href="' . $bbpm->thread_remove_member_url(get_user_display_name( $member ), $get) . '">x</a>] ':'') . '</li>';
 }
 
 ?>
 </ul>
 
-<?php if ( $bbpm->settings['users_per_thread'] == 0 || $bbpm->settings['users_per_thread'] > count( $members ) ) { ?>
+<?php if ( ($bbpm->settings['users_per_thread'] == 0 || $bbpm->settings['users_per_thread'] > count( $members )) && ($user_is_topic_starter || $can_edit_others_tags) ) { ?>
 <form id="tag-form" action="<?php echo BB_PLUGIN_URL . basename( dirname( __FILE__ ) ) . '/pm.php'; ?>" method="post">
 <p>
 <input type="text" id="tag" name="tag"/>
@@ -189,8 +194,27 @@ echo apply_filters( 'post_author_title_link', apply_filters( 'get_post_author_ti
 	</p>
 </div>
 <div class="threadpost">
+	<div class="edit_post" style="display:none;">
+		<form method="post" action="<?php echo BB_PLUGIN_URL . basename( dirname( __FILE__ ) ) . '/edit.php'; ?>" style="padding-left:0px; padding-top:0px; padding-bottom:0px;">
+			<?php
+				$edit_text = apply_filters( 'edit_text', $the_pm->text );
+				$line_count = substr_count( $edit_text, "\n" )+1;
+				do_action( 'post_form_pre_post' );
+			?>
+			<textarea id="unedited_message" class="no-smilies" style="display:none;"><?php echo $edit_text; ?></textarea>
+			<textarea name="message" class="no-smilies" cols="50" rows="<?php echo $bbpm->rowsForEditTextArea($line_count); ?>" id="message" tabindex="3" style="width:100%"><?php echo $edit_text; ?></textarea>
+			<p class="submit">
+				<input type="submit" class="pm-edit-cancel" value="<?php echo attribute_escape( __( 'Cancel', 'bbpm' ) ); ?>" tabindex="4" />
+				<input type="submit" class="pm-edit-submit" value="<?php echo attribute_escape( __( 'Edit Message &raquo;', 'bbpm' ) ); ?>" tabindex="4" />
+			</p>
+			<p><?php _e('Allowed markup:'); ?> <code><?php allowed_markup(); ?></code>. <br /><?php _e('You can also put code in between backtick ( <code>`</code> ) characters.'); ?></p>
+			<?php bb_nonce_field( 'bbpm-reply-' . $the_pm->ID ); ?>
+			<input type="hidden" value="<?php echo $the_pm->ID; ?>" name="id" id="id" />
+			<?php do_action( 'post_form_post_post' ); do_action( 'post_form' ); ?>
+		</form>
+	</div>
 	<div class="post"><?php echo apply_filters( 'post_text', apply_filters( 'get_post_text', $the_pm->text ) ); ?></div>
-	<div class="poststuff"><?php printf( __( 'Sent %s ago', 'bbpm' ), bb_since( $the_pm->date ) ); ?> <a href="<?php echo $the_pm->read_link; ?>">#</a> <a href="<?php echo $the_pm->reply_link; ?>" class="pm-reply"><?php _e( 'Reply', 'bbpm' ); ?></a></div>
+	<div class="poststuff"><?php printf( __( 'Sent %s ago', 'bbpm' ), bb_since( $the_pm->date ) ); ?> <a href="<?php echo $the_pm->read_link; ?>">#</a> <?php if ($user_id == $the_pm->from->ID || bb_current_user_can('edit_others_posts')) { ?> <a href="<?php echo $the_pm->reply_link; ?>" id="<?php echo $i; ?>" class="pm-edit"><?php _e( 'Edit', 'bbpm' ); ?></a><?php } ?></div>
 </div>
 </li>
 <?php
@@ -198,6 +222,22 @@ echo apply_filters( 'post_author_title_link', apply_filters( 'get_post_author_ti
 ?>
 </ol>
 <script type="text/javascript">
+var edit_submitted = false;
+jQuery.fn.selectRange = function(start, end) {
+    return this.each(function() {
+        if (this.setSelectionRange) {
+            this.focus();
+            this.setSelectionRange(start, end);
+        } else if (this.createTextRange) {
+            var range = this.createTextRange();
+            range.collapse(true);
+            range.moveEnd('character', end);
+            range.moveStart('character', start);
+            range.select();
+        }
+    });
+};
+
 jQuery(function($){
 	$('.pm-reply').click(function(){
 		$('#static-respond').hide('normal');
@@ -221,6 +261,35 @@ jQuery(function($){
 			bbField.style.width = '99%';
 <?php } ?>
 		}, 'text');
+		return false;
+	});
+	$('.pm-edit').click(function(){
+		if (edit_submitted) return false;
+<?php if ( $bbpm->settings['edit_textarea_autofocus'] ) { ?>
+		$(this).parent().parent().find('.post').hide().end().find('.edit_post').show().find('#message').focus().selectRange(0, 0);
+<?php } else { ?>
+		$(this).parent().parent().find('.post').hide().end().find('.edit_post').show().find('#message');
+<?php } ?>
+		$(this).hide();
+		return false;
+	});
+	$('.pm-edit-submit').click(function(){
+		var post_element = $(this).parent().parent().parent().parent();
+		var unedited_text = post_element.find('#unedited_message').val();
+		var edited_text = post_element.find('#message').val();
+		if ($.trim(edited_text) == $.trim(unedited_text)) {
+			post_element.find('.pm-edit-cancel').click();
+			return false;
+		}
+
+		if (edit_submitted) return false;
+		edit_submitted = true;
+	});
+	$('.pm-edit-cancel').click(function(){
+		if (edit_submitted) return false;
+		var post_element = $(this).parent().parent().parent().parent();
+		var unedited_text = post_element.find('.edit_post').hide().end().find('.post').show().end().find('.pm-edit').show().end().find('#unedited_message').val();
+		post_element.find('#message').val(unedited_text);
 		return false;
 	});
 });

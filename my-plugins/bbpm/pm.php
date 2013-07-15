@@ -1,7 +1,7 @@
 <?php
 /**
  * @package bbPM
- * @version 1.0.1
+ * @version 1.0.2
  * @author Nightgunner5
  * @license http://www.gnu.org/licenses/gpl-3.0.txt GNU General Public License, Version 3 or higher
  */
@@ -125,4 +125,19 @@ if ( isset( $_GET['unsubscribe'] ) && bb_verify_nonce( $_GET['_wpnonce'], 'bbpm-
 	$bbpm->unsubscribe( $_GET['unsubscribe'] );
 
 	wp_redirect( $bbpm->get_link() );
+}
+
+if ( isset( $_GET['remove_member'] ) && !empty( $_GET['pm_thread'] )  && bb_verify_nonce( $_GET['_wpnonce'], 'bbpm-remove-member-' . $_GET['unsubscribe'] ) ) {
+	if ( $bbpm->can_read_thread( $_GET['pm_thread'] ) ) {
+		if ( !$to = bb_get_user( trim( $_GET['remove_member'] ) ) )
+			if ( !$to = bb_get_user_by_nicename( trim( $_GET['remove_member'] ) ) )
+				if ( !$to = bb_get_user( trim( $_GET['remove_member'] ), array( 'by' => 'login' ) ) )
+					bb_die( __( 'You need to choose a valid person to remove.', 'bbpm' ) );
+
+		$bbpm->remove_member( $_GET['pm_thread'], $to->ID );
+	}
+
+	bb_update_usermeta( bb_get_current_user_info( 'ID' ), 'last_posted', time() );
+
+	wp_redirect( bb_get_option( 'mod_rewrite' ) ? bb_get_uri( 'pm/' . $_GET['pm_thread'] ) : bb_get_uri( '', array( 'pm' => $_GET['pm_thread'] ) ) );
 }

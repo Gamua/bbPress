@@ -3,7 +3,7 @@
 Plugin Name: bbPM
 Plugin URI: http://nightgunner5.wordpress.com/tag/bbpm/
 Description: Adds the ability for users of a forum to send private messages to each other.
-Version: 1.0.1
+Version: 1.0.2
 Author: Ben L.
 Author URI: http://nightgunner5.wordpress.com/
 Text Domain: bbpm
@@ -12,7 +12,7 @@ Domain Path: /translations
 
 /**
  * @package bbPM
- * @version 1.0.1
+ * @version 1.0.2
  * @author Nightgunner5
  * @license http://www.gnu.org/licenses/gpl-3.0.txt GNU General Public License, Version 3 or higher
  */
@@ -42,11 +42,18 @@ class bbPM_Message {
 	 * @since 0.1-alpha1
 	 */
 	var $read_link;
+
 	/**
 	 * @var string The URL of the page that has the reply form for this message
 	 * @since 0.1-alpha1
 	 */
 	var $reply_link;
+
+	/**
+	 * @var string The URL of the page that has the edit form for this message
+	 * @since 1.0.2
+	 */
+	var $edit_link;
 
 	/**
 	 * @var int The message ID
@@ -125,9 +132,11 @@ class bbPM_Message {
 		if ( bb_get_option( 'mod_rewrite' ) ) {
 			$this->read_link    = bb_get_uri( 'pm/' . $row->pm_thread ) . '#pm-' . $row->ID;
 			$this->reply_link   = bb_get_uri( 'pm/' . $row->ID . '/reply' );
+			$this->edit_link   = bb_get_uri( 'pm/' . $row->ID . '/edit' );
 		} else {
 			$this->read_link    = bb_get_uri( '', array( 'pm' => $row->pm_thread ) ) . '#pm-' . $row->ID;
 			$this->reply_link   = bb_get_uri( '', array( 'pm' => $row->ID . '/reply' ) );
+			$this->edit_link   = bb_get_uri( '', array( 'pm' => $row->ID . '/edit' ) );
 		}
 		$this->ID           = (int)$row->ID;
 		$this->title        = apply_filters( 'get_topic_title', $bbpm->get_thread_title( $row->pm_thread ), 0 );
@@ -218,7 +227,7 @@ class bbPM {
 		$this->settings = bb_get_option( 'bbpm_settings' );
 		$this->version = $this->settings ? $this->settings['version'] : false;
 
-		if ( !$this->version || $this->version != '1.0.1' )
+		if ( !$this->version || $this->version != '1.0.2' )
 			$this->update();
 
 		if ( $this->settings['auto_add_link'] )
@@ -353,14 +362,19 @@ INDEX ( `pm_to` , `pm_from`, `reply_to` )
 
 			case '1.0':
 				$this->settings['users_per_thread'] = 0;
+			case '1.0.1':
+			case '1.0.2':
+				$this->settings['email_remove'] = true;
+				$this->settings['edit_textarea_min_rows'] = 10;
+				$this->settings['edit_textarea_max_rows'] = 0;
+				$this->settings['edit_textarea_autofocus'] = false;
+				$this->settings['show_errors'] = false;
 
 				// At the end of all of the updates:
-				$this->settings['version'] = '1.0.1';
-				$this->version             = '1.0.1';
+				$this->settings['version'] = '1.0.2';
+				$this->version             = '1.0.2';
 				bb_update_option( 'bbpm_settings', $this->settings );
 
-			case '1.0.1':
-				// Do nothing, this is the newest version.
 		}
 	}
 
@@ -645,6 +659,49 @@ INDEX ( `pm_to` , `pm_from`, `reply_to` )
 		return $msg->read_link;
 	}
 
+    	/* Edit a private message
+	 *
+	 * @param int $id The ID of the message that is being edited
+	 * @param string $message The edited message
+	 * @return string A link to the edited message
+	 * @global BPDB_Multi updating the message
+	 * @since 1.0.2
+	 */
+	function edit( $id, $message ) {
+		global $bbdb;
+		
+		$text = str_replace(array("'", "\\"), array("''", "\\\\"), apply_filters( 'pre_post', $message, 0, 0 ));
+		$success = $bbdb->query( 'UPDATE `' . $bbdb->bbpm . '` SET `pm_text` = \''.$text.'\' WHERE `ID` ='.$id );
+		$result_error = $bbdb->get_error();
+
+		if (($success != true) && $result_error) {
+			$error_msg = 'ERROR: '.$bbdb->last_error.'.<br/><br/>See error log for more detail.';
+			if ($bbpm->settings['show_errors']) $bbdb->show_errors();
+			return $error_msg;
+		}
+
+		$msg = new bbPM_Message($id);
+		if (!msg) {
+			$error_msg = 'ERROR: '.'bbPM_Message() returned null for id "'.$id.'".';
+			if ($bbpm->settings['show_errors']) $bbdb->show_errors();
+			return $error_msg;
+		}
+
+		return $msg->read_link;
+	}
+
+	/* Get the row count for edit text areas
+	 *
+	 * @param int $lineCount The desired number of rows
+	 * @return int The row count within the min and max settings
+	 * @since 1.0.2
+	 */
+	function rowsForEditTextArea( $rows ) {
+		$min = ($this->settings['edit_textarea_min_rows'] < 1) ? 1 : $this->settings['edit_textarea_min_rows'];
+		$max = ($this->settings['edit_textarea_max_rows'] < 1) ? $rows : $this->settings['edit_textarea_max_rows'];
+		return max(min($rows, $max), $min);
+	}
+
 	/**
 	 * @access private
 	 */
@@ -834,6 +891,57 @@ INDEX ( `pm_to` , `pm_from`, `reply_to` )
 	}
 
 	/**
+	 * Remove a specific user from a PM thread
+	 *
+	 * @since 1.0.2
+	 * @param int $ID The ID of the thread to unsubscribe from
+	 * @param int $user The ID of the user to unsubscribe
+	 * @return void
+	 * @uses bbPM::get_thread_meta() Check if the current user is actually on the member list
+	 * @global BPDB_Multi Delete the thread if it has no members left
+	 */
+	function remove_member( $ID, $user ) {
+		global $bbdb;
+
+		if ( $members = $this->get_thread_meta( $ID, 'to' ) ) {
+			if ( strpos( $members, ',' . $user . ',' ) !== false ) {
+				$members = str_replace( ',' . $user . ',', ',', $members );
+				if ( $members == ',' ) {
+					$bbdb->query( $bbdb->prepare( 'DELETE FROM `' . $bbdb->bbpm . '` WHERE `pm_thread` = %d', $ID ) );
+					$bbdb->query( $bbdb->prepare( 'DELETE FROM `' . $bbdb->meta . '` WHERE `object_type` = %s AND `object_id` = %d', 'bbpm_thread', $ID ) );
+					if ( function_exists( 'wp_cache_flush' ) )
+						wp_cache_flush( 'bbpm-thread-' . $ID );
+				} else {
+					bb_update_meta( $ID, 'to', $members, 'bbpm_thread' );
+					if ( function_exists( 'wp_cache_set' ) )
+						wp_cache_set( 'to', $members, 'bbpm-thread-' . $ID );
+				}
+				if ( function_exists( 'wp_cache_delete' ) )
+					wp_cache_delete( bb_get_current_user_info( 'ID' ), 'bbpm-user-messages' );
+				do_action( 'bbpm_unsubscribe', $ID );
+
+				if ( $this->settings['email_remove'] && !bb_get_usermeta( $user, 'bbpm_emailme' ) ) {
+					bb_mail( bb_get_user_email( $user ),
+						sprintf(
+							__( '%1$s has removed you from a conversation on %2$s: "%3$s"', 'bbpm' ),
+							get_user_display_name( bb_get_current_user_info( 'ID' ) ),
+							bb_get_option( 'name' ),
+							$this->get_thread_title( $ID )
+						), sprintf(
+							__( "Hello, %1\$s!\n\n%2\$s has removed you from a private message conversation titled \"%3\$s\" on %4\$s!", 'bbpm' ),
+							get_user_display_name( $user ),
+							get_user_display_name( bb_get_current_user_info( 'ID' ) ),
+							$this->get_thread_title( $ID ),
+							bb_get_option( 'name' ),
+							bb_get_option( 'mod_rewrite' ) ? bb_get_uri( 'pm/' . $ID ) : bb_get_uri( '', array( 'pm' => $ID ) )
+						)
+					);
+				}
+			}
+		}
+	}
+
+	/**
 	 * Add a member to a PM thread
 	 *
 	 * @since 0.1-alpha6
@@ -948,7 +1056,7 @@ INDEX ( `pm_to` , `pm_from`, `reply_to` )
 	 */
 	function post_title_filter( $text, $post_id = 0 ) {
 		if ( $post_id && ( $user_id = get_post_author_id( $post_id ) ) && bb_current_user_can( 'write_posts' ) ) {
-			//$text .= "<br/>\n";
+			$text .= "<br/>\n";
 			$text .= '<a href="' . $this->get_send_link( $user_id ) . '">' . __( 'PM this user', 'bbpm' ) . '</a>';
 		}
 		return $text;
@@ -1081,6 +1189,13 @@ INDEX ( `pm_to` , `pm_from`, `reply_to` )
 	 */
 	function thread_unsubscribe_url() {
 		echo bb_nonce_url( BB_PLUGIN_URL . basename( dirname( __FILE__ ) ) . '/pm.php?unsubscribe=' . $this->the_pm['id'], 'bbpm-unsubscribe-' . $this->the_pm['id'] );
+	}
+
+	/**
+	 * @since 1.0.2
+	 */
+	function thread_remove_member_url($member, $pm_thread) {
+		return bb_nonce_url( BB_PLUGIN_URL . basename( dirname( __FILE__ ) ) . '/pm.php?remove_member=' . $member . '&pm_thread=' . $pm_thread, 'bbpm-remove-member-' . $this->the_pm['id'] );
 	}
 
 	/**
@@ -1236,8 +1351,12 @@ function bbpm_admin_page() {
 		$bbpm->settings['email_new']        = !empty( $_POST['email_new'] );
 		$bbpm->settings['email_reply']      = !empty( $_POST['email_reply'] );
 		$bbpm->settings['email_add']        = !empty( $_POST['email_add'] );
+		$bbpm->settings['email_remove']     = !empty( $_POST['email_remove'] );
 		$bbpm->settings['email_message']    = !empty( $_POST['email_message'] );
-		$bbpm->settings['threads_per_page'] = max( (int) $_POST['threads_per_page'], 0 );
+		$bbpm->settings['show_errors']      = !empty( $_POST['show_errors'] );
+		$bbpm->settings['edit_textarea_min_rows'] = max( (int) $_POST['edit_textarea_min_rows'], 0 );
+		$bbpm->settings['edit_textarea_max_rows'] = max( (int) $_POST['edit_textarea_max_rows'], 0 );
+		$bbpm->settings['edit_textarea_autofocus'] = !empty( $_POST['edit_textarea_autofocus'] );
 		$bbpm->settings['users_per_thread'] = max( (int) $_POST['users_per_thread'], 0 );
 		if ( $bbpm->settings['users_per_thread'] == 1 )
 			$bbpm->settings['users_per_thread'] = 0;
@@ -1290,6 +1409,7 @@ function bbpm_admin_page() {
 			<input type="checkbox" id="email_new" name="email_new"<?php if ( $bbpm->settings['email_new'] ) echo ' checked="checked"'; ?> /> <?php _e( 'When a new message is recieved', 'bbpm' ); ?><br />
 			<input type="checkbox" id="email_reply" name="email_reply"<?php if ( $bbpm->settings['email_reply'] ) echo ' checked="checked"'; ?> /> <?php _e( 'When a new reply is recieved', 'bbpm' ); ?><br />
 			<input type="checkbox" id="email_add" name="email_add"<?php if ( $bbpm->settings['email_add'] ) echo ' checked="checked"'; ?> /> <?php _e( 'When a user is added to a conversation', 'bbpm' ); ?><br />
+			<input type="checkbox" id="email_remove" name="email_remove"<?php if ( $bbpm->settings['email_remove'] ) echo ' checked="checked"'; ?> /> <?php _e( 'When a user is removed from a conversation', 'bbpm' ); ?><br />
 			<input type="checkbox" id="email_message" name="email_message"<?php if ( $bbpm->settings['email_message'] ) echo ' checked="checked"'; ?> /> <?php _e( 'Include contents of message', 'bbpm' ); ?>
 		</div>
 	</div>
@@ -1311,6 +1431,46 @@ function bbpm_admin_page() {
 		<div class="inputs">
 			<input type="text" class="text short" id="users_per_thread" name="users_per_thread" value="<?php echo $bbpm->settings['users_per_thread']; ?>" />
 			<p><?php _e( '0 means unlimited. 2 will disable the "add users" form.', 'bbpm' ); ?></p>
+		</div>
+	</div>
+
+	<div id="option-edit_textarea_min_rows">
+		<label for="edit_textarea_min_rows">
+			<?php _e( 'Minimum rows for edit text area', 'bbpm' ); ?>
+		</label>
+		<div class="inputs">
+			<input type="text" class="text short" id="edit_textarea_min_rows" name="edit_textarea_min_rows" value="<?php echo $bbpm->settings['edit_textarea_min_rows']; ?>" />
+			<p><?php _e( 'Enter 0 or leave this blank to use the line count of the message.', 'bbpm' ); ?></p>
+		</div>
+	</div>
+
+	<div id="option-edit_textarea_max_rows">
+		<label for="edit_textarea_max_rows">
+			<?php _e( 'Maximum rows for edit text area', 'bbpm' ); ?>
+		</label>
+		<div class="inputs">
+			<input type="text" class="text short" id="edit_textarea_max_rows" name="edit_textarea_max_rows" value="<?php echo $bbpm->settings['edit_textarea_max_rows']; ?>" />
+			<p><?php _e( 'Enter 0 or leave this blank to use the line count of the message.', 'bbpm' ); ?></p>
+		</div>
+	</div>
+
+	<div id="option-edit_textarea_autofocus">
+		<label for="edit_textarea_autofocus">
+			<?php _e( 'Auto focus on edit text area', 'bbpm' ); ?>
+		</label>
+		<div class="inputs">
+			<input type="checkbox" id="edit_textarea_autofocus" name="edit_textarea_autofocus"<?php if ( $bbpm->settings['edit_textarea_autofocus'] ) echo ' checked="checked"'; ?> />
+			<p><?php _e( 'If checked, the edit text area will be automatically selected when the user clicks an "edit" link.', 'bbpm' ); ?></p>
+		</div>
+	</div>
+
+	<div id="option-show_errors">
+		<label for="show_errors">
+			<?php _e( 'Show errors when editing messages', 'bbpm' ); ?>
+		</label>
+		<div class="inputs">
+			<input type="checkbox" id="show_errors" name="show_errors"<?php if ( $bbpm->settings['show_errors'] ) echo ' checked="checked"'; ?> />
+			<p><?php _e( 'If checked, bbPM show detailed errors in browser and error log.', 'bbpm' ); ?></p>
 		</div>
 	</div>
 </fieldset>
