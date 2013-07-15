@@ -113,10 +113,6 @@ function bb_smilies_panel() {
 function bb_smilies_convert($text) {
 global $bb_smilies, $bb_smilies_search, $bb_smilies_replace, $bb_smilies_prep;
 
-//echo("<!-- ABCDE: " . $text . " -->");
-
-
-
 if (empty($bb_smilies_prep)) {bb_smilies_init();}
 
 $counter=0;  // filter out all backtick code first
