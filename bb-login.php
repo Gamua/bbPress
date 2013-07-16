@@ -87,6 +87,12 @@ if ( empty( $_POST['rememberme'] ) )
 // Attempt to log the user in
 if ( $user = bb_login( @$_POST['log'], @$_POST['pwd'], @$_POST['rememberme'] ) ) {
 	if ( !is_wp_error( $user ) ) {
+		
+		// Users that were registered via another forum (shared user database) don't have
+		// any role. Initialize them with 'member' role so that they can post.
+		if (empty($user->capabilities))
+			bb_update_usermeta( $user->ID, $bbdb->prefix . 'capabilities', array('member' => true) );
+
 		bb_safe_redirect( $re );
 		exit;
 	} else {
