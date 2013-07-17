@@ -17,7 +17,7 @@ if ( $q = stripslashes( $q ) ) {
 	$recent_count = $recent ? $bb_query_form->found_rows : 0;
 	
 	/* Relevant */
-	$bb_query_form->BB_Query_Form( 'topic', array( 'search' => $q ), array( 'per_page' => $per_page, 'count' => true, 'post_status' => 0, 'topic_status' => 0, 'search', 'forum_id', 'tag', 'topic_author', 'post_author' ), 'bb_relevant_search' );
+	$bb_query_form->BB_Query_Form( 'topic', array( 'search' => $q ), array( 'per_page' => $per_page, 'count' => true, 'post_status' => 0, 'topic_status' => 0, 'append_meta' => false, 'search', 'forum_id', 'tag', 'topic_author', 'post_author' ), 'bb_relevant_search' );
 	$relevant = $bb_query_form->results;
 	$relevant_count = $relevant ? $bb_query_form->found_rows : 0;
 	
