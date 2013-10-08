@@ -3224,7 +3224,7 @@ function bb_get_tag_remove_link( $args = null ) {
 }
 
 function bb_tag_heat_map( $args = '' ) {
-	$defaults = array( 'smallest' => 8, 'largest' => 19, 'unit' => 'pt', 'limit' => 40, 'format' => 'flat' );
+	$defaults = array( 'smallest' => 10, 'largest' => 19, 'unit' => 'pt', 'limit' => 40, 'format' => 'flat' );
 	$args = wp_parse_args( $args, $defaults );
 
 	if ( 1 < $fn = func_num_args() ) : // For back compat
@@ -3246,7 +3246,7 @@ function bb_tag_heat_map( $args = '' ) {
 }
 
 function bb_get_tag_heat_map( $tags, $args = '' ) {
-	$defaults = array( 'smallest' => 8, 'largest' => 19, 'unit' => 'pt', 'limit' => 45, 'format' => 'flat' );
+	$defaults = array( 'smallest' => 10, 'largest' => 19, 'unit' => 'pt', 'limit' => 45, 'format' => 'flat' );
 	$args = wp_parse_args( $args, $defaults );
 	extract($args, EXTR_SKIP);
 
