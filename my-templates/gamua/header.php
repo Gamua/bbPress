@@ -16,8 +16,11 @@ if ( bb_is_profile() ) {
 	<meta name="viewport" content="width=790">
 	<title><?php bb_title() ?></title>
 	<link rel="shortcut icon" href="<?php bb_option('uri'); ?>favicon.ico" type="image/vnd.microsoft.icon" />
+
+    <link rel="script" href="<?php echo bb_get_active_theme_uri() . "js/jquery-1.10.2.min.js" ?>"/>
+
 	<link rel="stylesheet" href="<?php bb_stylesheet_uri(); ?>" type="text/css" />
-	<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400|Ubuntu:400,500,700|Ubuntu+Condensed' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400|Ubuntu:400,500,700|Ubuntu+Condensed" type="text/css">
 <?php if ( 'rtl' == bb_get_option( 'text_direction' ) ) : ?>
 	<link rel="stylesheet" href="<?php bb_stylesheet_uri( 'rtl' ); ?>" type="text/css" />
 <?php endif; ?>
