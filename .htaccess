@@ -1,6 +1,21 @@
+# Turn on Expires and set default to 0
+ExpiresActive On
+ExpiresDefault A0
+AddType image/x-icon .ico
+
+# Set expires headers for known types
+ExpiresByType text/css "access plus 30 days"
+ExpiresByType text/javascript "access plus 30 days"
+ExpiresByType application/javascript "access plus 30 days"
+ExpiresByType application/x-shockwave-flash "access plus 30 days"
+ExpiresByType image/gif "access plus 30 days"
+ExpiresByType image/png "access plus 30 days"
+ExpiresByType image/jpeg "access plus 30 days"
+ExpiresByType image/ico "access plus 30 days"
+ExpiresByType image/x-icon "access plus 30 days"
+ExpiresByType image/x-icon "access plus 30 days"
 
 # BEGIN bbPress
-
 Options -MultiViews
 
 <IfModule mod_rewrite.c>
@@ -37,5 +52,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^.*$ /index.php [L]
 </IfModule>
-
 # END bbPress
