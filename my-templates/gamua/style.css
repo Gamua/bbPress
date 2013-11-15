@@ -592,7 +592,7 @@ input#tagformsub:active {
 }
 
 #thread .post {
-	_height: 90px; /* Hack to fix broken .alt coloring in IE6 */
+	overflow: hidden;
 }
 
 #thread .post blockquote {
