@@ -121,10 +121,9 @@ img.avatar { border: 1px solid #ddd; }
 }
 
 .header .logo h1 {
-  padding-top: 0.5em;
-  font-size: 25px;
+  font-size: 30px;
   color: white;
-  margin: 5px 125px 0 0;
+  margin: 32px 135px 0 0;
   font-variant: small-caps;
   -moz-text-shadow: 0 1px 3px black;
   -webkit-text-shadow: 0 1px 3px black;
@@ -591,8 +590,8 @@ input#tagformsub:active {
 	border-left: 3px dotted #ccc;
 }
 
-#thread .post {
-	_height: 90px; /* Hack to fix broken .alt coloring in IE6 */
+#thread .post p {
+	overflow: hidden;
 }
 
 #thread .post blockquote {

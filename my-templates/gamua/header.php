@@ -93,7 +93,6 @@ $logo_style   = "background-image: url(" . $image_folder . "/header_logo.png);";
           <a href="<?php bb_uri(); ?>">
             <div class="logo" style="<?php echo $logo_style ?>">
               <h1><?php bb_option('name'); ?></h1>
-              <p><?php bb_option('description'); ?></p>
             </div>
           </a>
           <?php if (!in_array( bb_get_location(), array('login-page', 'register-page'))) login_form(); ?>
