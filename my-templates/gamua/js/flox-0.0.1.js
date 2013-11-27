@@ -1,10 +1,4 @@
 $("document").ready(function () {
-    //test
-    //var floxUri = "https://flox-by-gamua-test.appspot.com";
-    //var gameId = "gbvO2ANpJ6J52FUP";
-    //var gameKey = "wloDlGDMbVbYShIv";
-
-    //production
     var floxUri = "https://www.flox.cc";
     var gameId = "EQxJL9PwsSqIm0Eu";
     var gameKey = "rhHwmBONEFg7K6oK";
