@@ -12,7 +12,6 @@ $("document").ready(function () {
 
 function executeAnalyticsPost(floxUri, gameId, gameKey) {
     var url = floxUri + "/api/games/" + gameId + "/.analytics";
-    var xFloxHeader = createXFloxHeader(gameKey);
     var data = createAnalyticsPost();
 
     $.support.cors = true;
@@ -24,6 +23,7 @@ function executeAnalyticsPost(floxUri, gameId, gameKey) {
         data: JSON.stringify(data),
         dataType: "json",
         beforeSend: function (jqXHR) {
+            var xFloxHeader = createXFloxHeader(gameKey);
             jqXHR.setRequestHeader("X-Flox", JSON.stringify(xFloxHeader));
         },
         success: function (responseData, textStatus, jqXHR) {
