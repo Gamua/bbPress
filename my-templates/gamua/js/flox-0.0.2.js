@@ -41,7 +41,7 @@ function executeAnalyticsPost(floxUri, gameId, gameKey) {
 function createAnalyticsPost() {
     return  {
         "startTime": formatAsXmlDateTime(new Date()),
-        "gameVersion": "0.0.1",
+        "gameVersion": "0.0.2",
         "languageCode": "en",
         "deviceInfo": {}
     };
@@ -50,7 +50,7 @@ function createAnalyticsPost() {
 function createXFloxHeader(gameKey) {
     var sdk = {};
     sdk.type = "js";
-    sdk.version = "0.0.1";
+    sdk.version = "0.0.2";
 
     var player = {};
     player.id = createUUID();
