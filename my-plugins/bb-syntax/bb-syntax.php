@@ -120,9 +120,25 @@ function bb_syntax_after_filter($content)
 $bb_syntax_token = md5(uniqid(rand()));
 
 // information on how to use it
-function add_content_post_form(){
-    echo '<p>Surround source code with <strong>'.htmlentities('<pre lang="x">...</pre>') . 
-         '</strong> (where x can be <strong>"as3"</strong>, <strong>"objc"</strong>, etc.)</p>';
+function add_content_post_form()
+{
+    $forum_name_parts = explode(" ", strtolower(bb_get_option('name')));
+    $forum_name = $forum_name_parts[0];
+
+    if ($forum_name == "starling" || $forum_name == "sparrow")
+    {
+        $language = ($forum_name == "starling" ? "as3" : "objc");
+
+        echo('<p>Surround source code with <strong>' . 
+             htmlentities('<pre lang="' . $language . '">...</pre>') . 
+             '</strong>.</p>');
+    }
+    else
+    {
+        echo('<p>Surround source code with <strong>' . 
+             htmlentities('<pre lang="x">...</pre>') . 
+             '</strong> (where x can be <strong>"as3"</strong>, <strong>"objc"</strong>, etc.)</p>.');
+    }
 }
 
 add_action('post_form', 'add_content_post_form', 1);
