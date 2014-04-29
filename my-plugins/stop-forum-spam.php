@@ -39,7 +39,7 @@ function registration_validation()
 	{
 		if (script_location() != "register.php") return;  //  only display on register.php and hide on profile page
 
-		$is_spammer_by_ip = true; //is_spammer('ip',$_SERVER['REMOTE_ADDR']);
+		$is_spammer_by_ip = is_spammer('ip',$_SERVER['REMOTE_ADDR']);
 
 		if (!is_correct_answer($_POST["question_id"], $_POST["human_test_answer"]) || $is_spammer_by_ip
 			// || is_spammer('ip',$_SERVER['REMOTE_ADDR'])
