@@ -6,7 +6,7 @@ Description:  API for http://www.stopforumspam.com/ on bbPress
 Version: 0.1.0
 Author: pnd (http://nanp-info.com)
 Author URI: http://reviewtrip.com/
-*/ 
+*/
 
 add_action( 'extra_profile_info', 'registration_form',12);
 add_action( 'bb_init', 'registration_validation',12);   // registration
@@ -33,13 +33,15 @@ $starling_questions[] = array("What's the name of Thibault Imbert's book about S
 $starling_questions[] = array("What's the equivalent of the package 'flash.display' in Starling?", "starling.display");
 $starling_questions[] = array("In ActionScript 3, what's the modern, typesafe alternative of the 'Array' class?", "Vector");
 
-function registration_validation() 
+function registration_validation()
 {
 	if (!empty($_POST) && isset($_POST["Submit"])) // check this first to save cpu cycles on the next check
-	{	
+	{
 		if (script_location() != "register.php") return;  //  only display on register.php and hide on profile page
-		
-		if (!is_correct_answer($_POST["question_id"], $_POST["human_test_answer"])
+
+		$is_spammer_by_ip = is_spammer('ip',$_SERVER['REMOTE_ADDR']);
+
+		if (!is_correct_answer($_POST["question_id"], $_POST["human_test_answer"]) || $is_spammer_by_ip
 			// || is_spammer('ip',$_SERVER['REMOTE_ADDR'])
 			// || is_spammer('username',$_POST["user_login"])
 			// || is_spammer('email',$_POST["user_email"])
@@ -53,6 +55,14 @@ function registration_validation()
 				".__("please go back and try again").".
 				</font></p><br />";
 
+			if ($is_spammer_by_ip)
+			{
+				echo "<p>(Your IP address was listed as malicious by " .
+					 "<a href='http://www.stopforumspam.com/'>stopforumspam.com</a>). ".
+                     "Just send me a quick mail (to daniel AT my company's domain) ".
+                     "if this is happening unjustifiable.</p>"
+			}
+
 			bb_get_footer();
 			exit;
 		}
@@ -64,7 +74,7 @@ function is_spammer($type, $data)
 	$data = urlencode(substr(strip_tags(stripslashes($data)),0,50));
 	$url = "http://www.stopforumspam.com/api?".$type."=".$data;
 	// $content=file_get_contents($url);	// if you don't have curl, try this instead
-	$ch = curl_init(); 
+	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_HEADER, 1);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER , TRUE);
@@ -83,11 +93,11 @@ function is_correct_answer($question_id, $given_answer)
 
 	if (strcasecmp(trim($given_answer), trim($correct_answer)) == 0)
 		return true;
-	else 
+	else
 		return false;
 }
 
-function registration_form() 
+function registration_form()
 {
 	if (script_location()!="register.php") return;  //  only display on register.php and hide on profile page
 
@@ -113,16 +123,16 @@ function registration_form()
 	echo '</fieldset>';
 	echo '<input type="hidden" name = "question_id" value = "'. $fake_question_id . '" />';
 
-} 
+}
 
-function script_location() 
+function script_location()
 {
 	$resource=array($_SERVER['PHP_SELF'], $_SERVER['SCRIPT_FILENAME'], $_SERVER['SCRIPT_NAME']);
-	foreach ($resource as $name ) 
+	foreach ($resource as $name )
 	{
-		if (false!==strpos($name, '.php')) 
+		if (false!==strpos($name, '.php'))
 				return bb_find_filename($name);
-	} 
+	}
 	return false;
 }
 
