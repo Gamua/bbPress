@@ -39,7 +39,7 @@ function registration_validation()
 	{
 		if (script_location() != "register.php") return;  //  only display on register.php and hide on profile page
 
-		$is_spammer_by_ip = is_spammer('ip',$_SERVER['REMOTE_ADDR']);
+		$is_spammer_by_ip = true; //is_spammer('ip',$_SERVER['REMOTE_ADDR']);
 
 		if (!is_correct_answer($_POST["question_id"], $_POST["human_test_answer"]) || $is_spammer_by_ip
 			// || is_spammer('ip',$_SERVER['REMOTE_ADDR'])
@@ -57,10 +57,10 @@ function registration_validation()
 
 			if ($is_spammer_by_ip)
 			{
-				echo "<p>(Your IP address was listed as malicious by " .
-					 "<a href='http://www.stopforumspam.com/'>stopforumspam.com</a>). ".
-                     "Just send me a quick mail (to daniel AT my company's domain) ".
-                     "if this is happening unjustifiable.</p>"
+				echo "<p>Your IP address was listed as being malicious by " .
+					 "<a href='http://www.stopforumspam.com/'>stopforumspam.com</a>. ".
+                     "<br/>Just send me a quick mail (to daniel AT my company's domain) ".
+                     "if this is happening unjustifiably.</p>";
 			}
 
 			bb_get_footer();
