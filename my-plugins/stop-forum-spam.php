@@ -11,6 +11,16 @@ Author URI: http://reviewtrip.com/
 add_action( 'extra_profile_info', 'registration_form',12);
 add_action( 'bb_init', 'registration_validation',12);   // registration
 
+$general_questions = array();
+$general_questions[] = array("Would you store the value 1.333 in an 'Integer' or a 'Float'?", "Float");
+$general_questions[] = array("The class 'Ferrari' extends the class 'Car'. What is the super-class of 'Ferrari'?", "Car");
+$general_questions[] = array("x = 4; y = 3; z = x + y; What is the value of z?", "7");
+$general_questions[] = array("a = [3, 8, 2, 5]; a[1] = ?", "8");
+$general_questions[] = array("Which mobile OS has currently the biggest market share? (Hint: the one from Google)", "Android");
+$general_questions[] = array("x = 32; x++; x = ?", "33");
+$general_questions[] = array("What was the favorite fruit of Steve Jobs? (Singular)", "Apple");
+$general_questions[] = array("Name the third popular operating system besides Linux and OS X:", "Windows");
+
 $sparrow_questions = array();
 $sparrow_questions[] = array("What is the root class of (almost) any Objective-C object?", "NSObject");
 $sparrow_questions[] = array("In Sparrow, which class is always at the root of the display tree?", "SPStage");
@@ -138,6 +148,9 @@ function script_location()
 
 function get_questions_array()
 {
+	return $general_questions;
+
+	/*
 	global $sparrow_questions;
 	global $starling_questions;
 
@@ -147,6 +160,7 @@ function get_questions_array()
 		return $sparrow_questions;
 	else
 		return $starling_questions;
+	*/
 }
 
 ?>
