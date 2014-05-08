@@ -148,12 +148,13 @@ function script_location()
 
 function get_questions_array()
 {
+	global $sparrow_questions;
+	global $starling_questions;
+	global $general_questions;
+
 	return $general_questions;
 
 	/*
-	global $sparrow_questions;
-	global $starling_questions;
-
 	$domain = $_SERVER['SERVER_NAME']; // -> forum.sparrow-framework.org
 
 	if (strpos($domain, 'sparrow') !== FALSE)
