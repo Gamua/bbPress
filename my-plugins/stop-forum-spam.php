@@ -12,14 +12,13 @@ add_action( 'extra_profile_info', 'registration_form',12);
 add_action( 'bb_init', 'registration_validation',12);   // registration
 
 $general_questions = array();
-$general_questions[] = array("Would you store the value 1.333 in an 'Integer' or a 'Float'?", "Float");
-$general_questions[] = array("The class 'Ferrari' extends the class 'Car'. What is the super-class of 'Ferrari'?", "Car");
-$general_questions[] = array("x = 4; y = 3; z = x + y; What is the value of z?", "7");
-$general_questions[] = array("a = [3, 8, 2, 5]; a[1] = ?", "8");
-$general_questions[] = array("Which mobile OS has currently the biggest market share? (Hint: the one from Google)", "Android");
-$general_questions[] = array("x = 32; x++; x = ?", "33");
+$general_questions[] = array("If you increment the number 255, what's the result?", "256");
+$general_questions[] = array("If you decrement the number 129, what's the result?", "128");
+$general_questions[] = array("Take the square root of nine and add the number of hands attached to a typical human body. What's the result? (Enter the digit)", "5");
+$general_questions[] = array("Which mobile operating system has currently the biggest market share? (Hint: the one from Google)", "Android");
 $general_questions[] = array("What was the favorite fruit of Steve Jobs? (Singular)", "Apple");
-$general_questions[] = array("Name the third popular operating system besides Linux and OS X:", "Windows");
+$general_questions[] = array("Name the other popular Desktop operating system besides Linux and OS X:", "Windows");
+$general_questions[] = array("You find fourteen cookies (yay!) and eat three of them. How many are left? (Enter the digits)", "11");
 
 $sparrow_questions = array();
 $sparrow_questions[] = array("What is the root class of (almost) any Objective-C object?", "NSObject");
@@ -49,9 +48,10 @@ function registration_validation()
 	{
 		if (script_location() != "register.php") return;  //  only display on register.php and hide on profile page
 
-		$is_spammer_by_ip = is_spammer('ip',$_SERVER['REMOTE_ADDR']);
+		$is_spammer_by_ip = is_spammer('ip', $_SERVER['REMOTE_ADDR']);
+		$is_spammer_by_location = strcasecmp(trim($_POST['from']), 'shenzen') == 0;
 
-		if (!is_correct_answer($_POST["question_id"], $_POST["human_test_answer"]) || $is_spammer_by_ip
+		if (!is_correct_answer($_POST["question_id"], $_POST["human_test_answer"]) || $is_spammer_by_ip || $is_spammer_by_location
 			// || is_spammer('ip',$_SERVER['REMOTE_ADDR'])
 			// || is_spammer('username',$_POST["user_login"])
 			// || is_spammer('email',$_POST["user_email"])
