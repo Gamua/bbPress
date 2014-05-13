@@ -12,8 +12,8 @@ add_action( 'extra_profile_info', 'registration_form',12);
 add_action( 'bb_init', 'registration_validation',12);   // registration
 
 $general_questions = array();
-$general_questions[] = array("If you increment the number 255, what's the result?", "256");
-$general_questions[] = array("If you decrement the number 129, what's the result?", "128");
+$general_questions[] = array("If you increment the number 17, what's the result?", "18");
+$general_questions[] = array("If you decrement the number 25, what's the result?", "24");
 $general_questions[] = array("Take the square root of nine and add the number of hands attached to a typical human body. What's the result? (Enter the digit)", "5");
 $general_questions[] = array("Which mobile operating system has currently the biggest market share? (Hint: the one from Google)", "Android");
 $general_questions[] = array("What was the favorite fruit of Steve Jobs? (Singular)", "Apple");
@@ -51,6 +51,16 @@ function registration_validation()
 		$is_spammer_by_ip = is_spammer('ip', $_SERVER['REMOTE_ADDR']);
 		$is_spammer_by_location = strcasecmp(trim($_POST['from']), 'shenzhen') == 0;
 
+		// log registration attempts
+		$file = fopen("registrations.log", "a");
+		fwrite($file, "\n\n***** Registration Attempt *****");
+		fwrite($file, "\nUser_IP => " . $_SERVER['REMOTE_ADDR']);
+		foreach ($_POST as $key => $value)
+		{
+			if (!empty($value))
+				fwrite($file, "\n" . $key . " => " . $value);
+		}
+
 		if (!is_correct_answer($_POST["question_id"], $_POST["human_test_answer"]) || $is_spammer_by_ip || $is_spammer_by_location
 			// || is_spammer('ip',$_SERVER['REMOTE_ADDR'])
 			// || is_spammer('username',$_POST["user_login"])
@@ -69,12 +79,23 @@ function registration_validation()
 			{
 				echo "<p>Your IP address was listed as being malicious by " .
 					 "<a href='http://www.stopforumspam.com/'>stopforumspam.com</a>. ".
-                     "<br/>Just send me a quick mail (to daniel AT my company's domain) ".
-                     "if this is happening unjustifiably.</p>";
+					 "<br/>Just send me a quick mail (to daniel AT my company's domain) ".
+					 "if this is happening unjustifiably.</p>";
 			}
 
 			bb_get_footer();
+
+			// close file
+			fwrite($file, "\n=> Rejected, probably spam!");
+			fclose($file);
+
 			exit;
+		}
+		else
+		{
+			// close file
+			fwrite($file, "\n=> Accepted.");
+			fclose($file);
 		}
 	}
 }

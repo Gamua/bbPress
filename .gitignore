@@ -1,6 +1,9 @@
 # config contains passwords ...
 bb-config.php
 
+# logging for spam observations ...
+registrations.log
+
 # OS X folders
 .DS_Store
 
