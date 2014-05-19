@@ -44,21 +44,22 @@ $starling_questions[] = array("In ActionScript 3, what's the modern, typesafe al
 
 function registration_validation()
 {
-	if (!empty($_POST) && isset($_POST["Submit"])) // check this first to save cpu cycles on the next check
-	{
-		if (script_location() != "register.php") return;  //  only display on register.php and hide on profile page
+	$log = "";
+	$abort = false;
 
+	// only display on register.php and hide on profile page
+	if (script_location() == "register.php" && !empty($_POST))
+	{
 		$is_spammer_by_ip = is_spammer('ip', $_SERVER['REMOTE_ADDR']);
 		$is_spammer_by_location = strcasecmp(trim($_POST['from']), 'shenzhen') == 0;
 
 		// log registration attempts
-		$file = fopen("registrations.log", "a");
-		fwrite($file, "\n\n***** Registration Attempt *****");
-		fwrite($file, "\nUser_IP => " . $_SERVER['REMOTE_ADDR']);
+		$log .= "\n\n***** Registration Attempt *****";
+		$log .= "\nUser_IP => " . $_SERVER['REMOTE_ADDR'];
 		foreach ($_POST as $key => $value)
 		{
 			if (!empty($value))
-				fwrite($file, "\n" . $key . " => " . $value);
+				$log .= "\n" . $key . " => " . $value;
 		}
 
 		if (!is_correct_answer($_POST["question_id"], $_POST["human_test_answer"]) || $is_spammer_by_ip || $is_spammer_by_location
@@ -85,19 +86,24 @@ function registration_validation()
 
 			bb_get_footer();
 
-			// close file
-			fwrite($file, "\n=> Rejected, probably spam!");
-			fclose($file);
-
-			exit;
+			$log .= "\n=> Rejected, probably spam!";
+			$abort = true;
 		}
 		else
 		{
-			// close file
-			fwrite($file, "\n=> Accepted.");
-			fclose($file);
+			$log .= "\n=> Accepted.";
 		}
 	}
+
+	if (!empty($log)) write_registration_log($log);
+	if ($abort) exit;
+}
+
+function write_registration_log($message)
+{
+	$file = fopen("registrations.log", "a");
+	fwrite($file, $message);
+	fclose($file);
 }
 
 function is_spammer($type, $data)
