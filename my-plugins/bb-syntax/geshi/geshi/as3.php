@@ -64,10 +64,11 @@ $language_data = array (
     'KEYWORDS' => array(
         1 => array(
             'with', 'while', 'void', 'undefined', 'typeof', 'try', 'true',
-            'throw', 'this', 'switch', 'super', 'set', 'return', 'public', 'protected',
+            'throw', 'this', 'switch', 'super', 'set', 'return', 'public',
             'private', 'null', 'new', 'is', 'internal', 'instanceof', 'in',
             'import', 'if', 'get', 'for', 'false', 'else', 'each', 'do',
-            'delete', 'default', 'continue', 'catch', 'case', 'break', 'as'
+            'delete', 'default', 'continue', 'catch', 'case', 'break', 'as',
+            'protected', 'override'
             ),
         2 => array(
             'var'
@@ -386,7 +387,7 @@ $language_data = array (
             'BitmapData', 'Bitmap', 'BevelFilter', 'AsyncErrorEvent', 'Array',
             'ArgumentError', 'ApplicationDomain', 'AntiAliasType',
             'ActivityEvent', 'ActionScriptVersion', 'AccessibilityProperties',
-            'Accessibility', 'AVM1Movie'
+            'Accessibility', 'AVM1Movie', 'Starling'
             )
         ),
     'SYMBOLS' => array(
