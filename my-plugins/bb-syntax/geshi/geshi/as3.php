@@ -68,7 +68,7 @@ $language_data = array (
             'private', 'null', 'new', 'is', 'internal', 'instanceof', 'in',
             'import', 'if', 'get', 'for', 'false', 'else', 'each', 'do',
             'delete', 'default', 'continue', 'catch', 'case', 'break', 'as',
-            'protected', 'override', 'static'
+            'protected', 'override', 'static', 'extends', 'implements'
             ),
         2 => array(
             'var'
