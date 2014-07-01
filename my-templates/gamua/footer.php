@@ -116,7 +116,8 @@ bb_number_format_i18n( $bbdb->num_queries )
 
 <script type='text/javascript'>
     var _merchantSettings = _merchantSettings || [];
-    _merchantSettings.push(['AT', '10lJ37'], ['CT', 'Forum']);
+    _merchantSettings.push(['AT', '10lJ37']);
+    _merchantSettings.push(['CT', 'Forum']);
     (function () {
         var autolink = document.createElement('script');
         autolink.type = 'text/javascript';
