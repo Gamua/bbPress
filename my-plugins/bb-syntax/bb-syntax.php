@@ -9,7 +9,7 @@ Author URI: http://www.finalwebsites.com/
 */
 
 function allow_syntax_tag($tags) {
-	$tags['pre'] = array('lang' => array(), 'line' => array(), 'escaped' => array(), 'style' => array(), 'width' => array()); 
+	$tags['pre'] = array('lang' => array(), 'line' => array(), 'escaped' => array(), 'style' => array(), 'width' => array());
 	return $tags;
 }
 add_filter('bb_allowed_tags', 'allow_syntax_tag');
@@ -129,15 +129,15 @@ function add_content_post_form()
     {
         $language = ($forum_name == "starling" ? "as3" : "objc");
 
-        echo('<p>Surround source code with <strong>' . 
-             htmlentities('<pre lang="' . $language . '">...</pre>') . 
+        echo('<p>Surround source code with <strong>' .
+             htmlentities('<pre lang="' . $language . '">...</pre>') .
              '</strong>.</p>');
     }
     else
     {
-        echo('<p>Surround source code with <strong>' . 
-             htmlentities('<pre lang="x">...</pre>') . 
-             '</strong> (where x can be <strong>"as3"</strong>, <strong>"objc"</strong>, etc.)</p>.');
+        echo('<p>Surround source code with <strong>' .
+             htmlentities('<pre lang="x">...</pre>') .
+             '</strong> (where x can be <strong>"as3"</strong>, <strong>"objc"</strong>, etc).</p>');
     }
 }
 
