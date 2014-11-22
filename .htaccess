@@ -1,3 +1,7 @@
+<FilesMatch \.php$>
+   SetHandler php55-cgi
+</FilesMatch>
+
 # Turn on Expires and set default to 0
 ExpiresActive On
 ExpiresDefault A0
