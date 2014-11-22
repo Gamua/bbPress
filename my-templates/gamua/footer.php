@@ -127,6 +127,7 @@ bb_number_format_i18n( $bbdb->num_queries )
         s.parentNode.insertBefore(autolink, s);
     })();
 </script>
+<!-- <?php echo 'Page rendered with PHP ' . phpversion(); ?> -->
 
 </body>
 </html>
