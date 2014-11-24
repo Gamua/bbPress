@@ -15,7 +15,7 @@ $bb_smilies['css'] = ".bb_smilies {border:0; vertical-align: middle; padding-bot
 .bb_smilies {cursor: pointer; cursor: hand;}
 #bbClicker {position: absolute; float: right; visibility: hidden; background: buttonface; width: 150px; border:2px inset buttonface; font: 1.2em times, serif;}
 #bbClicker img {padding:5px;}
-#bb_smilies_toggle {float:right; padding: 0px 6px 1px 6px; margin: 1px 7px 2px 0; font: 1.2em times, serif; word-spacing: -1px; height: 16px; vertical-align:middle; line-height:16px;');}
+#bb_smilies_toggle {float:right; padding: 0px 6px 1px 6px; margin: 1px 7px 2px 0; font: 1.2em times, serif; word-spacing: -1px; height: 16px; vertical-align:middle; line-height:16px;}
 ";
 
 /*  stop editing here  */
