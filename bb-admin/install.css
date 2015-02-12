@@ -23,11 +23,11 @@ sup{vertical-align:baseline;}
 sub{vertical-align:baseline;}
 legend{color:#000;}
 input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}
-input,button,textarea,select{font-size:100%;}
-body{font:13px/1.231 arial,helvetica,clean,sans-serif;font-size:small;font:x-small;}
+input,button,textarea,select{*font-size:100%;}
+body{font:13px/1.231 arial,helvetica,clean,sans-serif;*font-size:small;*font:x-small;}
 select,input,button,textarea,button{font:99% arial,helvetica,clean,sans-serif;}
 table{font-size:inherit;font:100%;}
-pre,code,kbd,samp,tt{font-family:monospace;font-size:108%;line-height:100%;}
+pre,code,kbd,samp,tt{font-family:monospace;*font-size:108%;line-height:100%;}
 
 /*
 Now for our own code
