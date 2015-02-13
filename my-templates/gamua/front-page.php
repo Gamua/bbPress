@@ -29,7 +29,7 @@
 	<td class="num"><?php topic_posts(); ?></td>
 	<!-- <td class="num"><?php bb_topic_voices(); ?></td> -->
 	<td class="num"><?php topic_last_poster(); ?></td>
-	<td class="num"><a href="<?php topic_last_post_link(); ?>"><?php topic_time(); ?></a></td>
+	<td class="num"><a href="<?php topic_last_post_link(); ?>"><span title="<?php topic_time( array('format' => 'datetime') );?>"><?php topic_time(); ?></span></a></td>
 </tr>
 <?php endforeach; endif; // $super_stickies ?>
 
@@ -39,7 +39,7 @@
 	<td class="num"><?php topic_posts(); ?></td>
 	<!-- <td class="num"><?php bb_topic_voices(); ?></td> -->
 	<td class="num"><?php topic_last_poster(); ?></td>
-	<td class="num"><a href="<?php topic_last_post_link(); ?>"><?php topic_time(); ?></a></td>
+	<td class="num"><a href="<?php topic_last_post_link(); ?>"><span title="<?php topic_time( array('format' => 'datetime') );?>"><?php topic_time(); ?></span></a></td>
 </tr>
 <?php endforeach; endif; // $topics ?>
 </table>
