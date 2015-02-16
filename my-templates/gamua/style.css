@@ -1052,3 +1052,19 @@ p.submit input:hover {
 p.submit input:active {
 	border-color: rgb(50, 50, 50);
 }
+
+/* Google custom search */
+
+div.gsc-control-cse.gsc-control-cse-en {
+    padding: 0;
+}
+
+div.gs-per-result-labels {
+    color: #7f7f7f;
+}
+
+table.gsc-table-result div.gs-per-result-labels a.gs-label {
+  text-decoration: none;
+  font-weight: bold;
+  color: #7f7f7f;
+}
