@@ -6,7 +6,8 @@
 
 <?php
 
-$forum_name = explode(" ", strtolower(bb_get_option('name')))[0];
+$forum_name_parts = explode(" ", strtolower(bb_get_option('name')));
+$forum_name = $forum_name_parts[0];
 $custom_search_id;
 
 if ($forum_name == "starling")
