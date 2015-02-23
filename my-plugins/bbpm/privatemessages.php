@@ -162,6 +162,8 @@ _e( 'Private Messages', 'bbpm' ); ?></h3>
 	<td><?php
 
 $first = true;
+$last_message = new bbPM_Message($bbpm->the_pm['last_message']);
+$full_time = bbpm_format_time($last_message->date);
 
 foreach ( $bbpm->the_pm['members'] as $member ) {
 	if ( !$first )
@@ -174,7 +176,7 @@ foreach ( $bbpm->the_pm['members'] as $member ) {
 }
 
 ?></td>
-	<td><span title="<?php echo(bbpm_format_time($the_pm->date)); ?>"><?php $bbpm->thread_freshness(); ?></span></td>
+	<td><span title="<?php echo($full_time); ?>"><?php $bbpm->thread_freshness(); ?></span></td>
 	<td><a href="<?php $bbpm->thread_unsubscribe_url(); ?>"><?php _e( 'Unsubscribe', 'bbpm' ); ?></a></td>
 </tr>
 <?php } ?>
