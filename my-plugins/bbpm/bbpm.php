@@ -19,6 +19,12 @@ Domain Path: /translations
 
 bb_load_plugin_textdomain( 'bbpm', dirname( __FILE__ ) . '/translations' );
 
+/**
+ * Format a timestamp with a human-readable format. 
+ */
+function bbpm_format_time( $time ) {
+	return gmdate( 'F d, Y H:i', ( $time + ( bb_get_option( 'gmt_offset' ) * 3600 ) ) );
+}
 
 /**
  * Private message class

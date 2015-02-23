@@ -214,7 +214,13 @@ echo apply_filters( 'post_author_title_link', apply_filters( 'get_post_author_ti
 		</form>
 	</div>
 	<div class="post"><?php echo apply_filters( 'post_text', apply_filters( 'get_post_text', $the_pm->text ) ); ?></div>
-	<div class="poststuff"><?php printf( __( 'Sent %s ago', 'bbpm' ), bb_since( $the_pm->date ) ); ?> <a href="<?php echo $the_pm->read_link; ?>">#</a> <?php if ($user_id == $the_pm->from->ID || bb_current_user_can('edit_others_posts')) { ?> <a href="<?php echo $the_pm->reply_link; ?>" id="<?php echo $i; ?>" class="pm-edit"><?php _e( 'Edit', 'bbpm' ); ?></a><?php } ?></div>
+	<div class="poststuff">
+		<span title="<?php echo(bbpm_format_time($the_pm->date)); ?>"><?php printf( __( 'Sent %s ago', 'bbpm' ), bb_since( $the_pm->date ) ); ?></span>
+		<a href="<?php echo $the_pm->read_link; ?>">#</a>
+		<?php if ($user_id == $the_pm->from->ID || bb_current_user_can('edit_others_posts')) { ?> 
+		    <a href="<?php echo $the_pm->reply_link; ?>" id="<?php echo $i; ?>" class="pm-edit"><?php _e( 'Edit', 'bbpm' ); ?></a><?php } 
+		?>
+	</div>
 </div>
 </li>
 <?php

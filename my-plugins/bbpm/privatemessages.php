@@ -174,7 +174,7 @@ foreach ( $bbpm->the_pm['members'] as $member ) {
 }
 
 ?></td>
-	<td><?php $bbpm->thread_freshness(); ?></td>
+	<td><span title="<?php echo(bbpm_format_time($the_pm->date)); ?>"><?php $bbpm->thread_freshness(); ?></span></td>
 	<td><a href="<?php $bbpm->thread_unsubscribe_url(); ?>"><?php _e( 'Unsubscribe', 'bbpm' ); ?></a></td>
 </tr>
 <?php } ?>
