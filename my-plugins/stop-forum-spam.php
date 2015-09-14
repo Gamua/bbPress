@@ -14,10 +14,10 @@ add_action( 'bb_init', 'registration_validation',12);   // registration
 $general_questions = array();
 $general_questions[] = array("If you increment the number 17, what's the result?", "18");
 $general_questions[] = array("If you decrement the number 25, what's the result?", "24");
-$general_questions[] = array("Take the square root of nine and add the number of hands attached to a typical human body. What's the result? (Enter the digit)", "5");
-$general_questions[] = array("Which mobile operating system has currently the biggest market share? (Hint: the one from Google)", "Android");
-$general_questions[] = array("What was the favorite fruit of Steve Jobs? (Singular)", "Apple");
-$general_questions[] = array("Name the other popular Desktop operating system besides Linux and OS X:", "Windows");
+$general_questions[] = array("Take the square root of nine and add the number of wheels attached to a typical car. What's the result? (Enter the digit)", "7");
+$general_questions[] = array("What's the name of the mobile operating system developed by Google?", "Android");
+$general_questions[] = array("What fruit comes to mind when you look at the logo found on the back of an iPhone? (Singular)", "Apple");
+$general_questions[] = array("Name the other popular desktop operating system besides Linux and Mac OS.", "Windows");
 $general_questions[] = array("You find fourteen cookies (yay!) and eat three of them. How many are left? (Enter the digits)", "11");
 
 $sparrow_questions = array();
