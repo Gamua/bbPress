@@ -13,7 +13,6 @@ bb_generator( 'comment' );
 		<description><?php echo $description; ?></description>
 		<language><?php esc_html( bb_option('language') ); ?></language>
 		<pubDate><?php echo gmdate('D, d M Y H:i:s +0000'); ?></pubDate>
-		<?php bb_generator( 'rss2' ); ?>
 		<textInput>
 			<title><![CDATA[<?php _e('Search'); ?>]]></title>
 			<description><![CDATA[<?php _e('Search all topics from these forums.'); ?>]]></description>
