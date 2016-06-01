@@ -4,11 +4,6 @@
 
 <div class="bbcrumb"><a href="<?php bb_uri(); ?>"><?php bb_option('name'); ?></a> &raquo; <?php _e('Front Page')?></div>
 
-<div id="hottags" role="main">
-<h2><?php _e('Hot Tags'); ?></h2>
-<p class="frontpageheatmap"><?php bb_tag_heat_map(); ?></p>
-</div>
-
 <div id="discussions">
 <?php if ( $topics || $super_stickies ) : ?>
 
@@ -80,6 +75,11 @@
 </ul>
 </div>
 <?php endif; // bb_is_user_logged_in() ?>
+
+<div id="hottags" role="main">
+<h2><?php _e('Hot Tags'); ?></h2>
+<p class="frontpageheatmap"><?php bb_tag_heat_map(); ?></p>
+</div>
 
 </div>
 

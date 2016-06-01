@@ -338,19 +338,19 @@ form.login input#remember {
 
 #front-page #hottags {
 	float: left;
-	width: 150px;
+	width: 760px;
 	overflow: hidden;
 }
 
 #front-page #discussions {
-	margin-left: 170px;
-	width: 590px;
+	width: 760px;
 }
 
 .frontpageheatmap {
 	font-weight: normal;
 	line-height: 30px;
 	padding-bottom: 10px;
+	text-align: justify;
 }
 
 #front-page #main h2, #forum-page #main h2, h2.post-form, #userlogin, #currentfavorites, #register, #passwordrecovery {
@@ -768,8 +768,11 @@ tr.bb-category td {
 
 #latest, #forumlist, #favorites {
 	background-color: #f7f7f7;
-	margin-bottom: 3em;
 	width: 100%;
+}
+
+#latest, #forumlist, #favorites, #viewdiv {
+	margin-bottom: 3em;
 }
 
 #discussions .nav {
