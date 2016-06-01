@@ -91,7 +91,7 @@ img.avatar { border: 1px solid #ddd; }
 }
 
 .header {
-  padding: 3px 10px;
+  padding: 3px 15px;
   max-width: 760px;
   min-width: 680px;
   margin: 0 auto;
@@ -148,8 +148,8 @@ img.avatar { border: 1px solid #ddd; }
 	min-width: 680px;
 	margin: 15px auto 25px;
 	position: relative;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 .bbcrumb_bar {
@@ -159,8 +159,8 @@ img.avatar { border: 1px solid #ddd; }
   line-height: 35px;
   border-top: 1px solid #efefef ;
   border-bottom: 1px solid #d5d5d5;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .bbcrumb {
@@ -187,7 +187,7 @@ h3.bbcrumb {
 	clear: both;
 	max-width: 760px;
 	min-width: 680px;
-	padding: 10px;
+	padding: 15px;
 }
 
 #footer p {
