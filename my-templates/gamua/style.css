@@ -647,13 +647,11 @@ h2.post-form {
 .postform textarea {
 	height: 12em;
 	margin: 5px 0;
-	padding: 5px;
-	width: 724px;
-	max-width: 724px;
+	padding: 5px 0;
+	width: 100%;
 	border: 1px solid #ccc;
 	display: block;
 	-moz-border-radius: 3px;
-	-khtml-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	font: 1.1em monospace;
@@ -664,12 +662,11 @@ h2.post-form {
 .postform #topic,
 .postform #tags-input {
 	margin: 5px 0;
-	padding: 5px;
-	width: 724px;
+	padding: 5px 0;
+	width: 100%;
 	border: 1px solid #ccc;
 	display: block;
 	-moz-border-radius: 3px;
-	-khtml-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 }
