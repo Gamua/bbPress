@@ -16,7 +16,6 @@ if ( bb_is_profile() ) {
 	<meta name="viewport" content="width=790">
 	<title><?php bb_title() ?></title>
 	<link rel="shortcut icon" href="<?php bb_option('uri'); ?>favicon.ico" type="image/vnd.microsoft.icon" />
-    <script type="text/javascript" src="<?php echo bb_get_active_theme_uri() . "js/jquery-1.10.2.min.js" ?>"></script>
 	<link rel="stylesheet" href="<?php bb_stylesheet_uri(); ?>" type="text/css" />
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400|Ubuntu:400,500,700|Ubuntu+Condensed" type="text/css">
 <?php if ( 'rtl' == bb_get_option( 'text_direction' ) ) : ?>
