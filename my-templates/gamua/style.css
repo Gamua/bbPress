@@ -91,8 +91,9 @@ img.avatar { border: 1px solid #ddd; }
 }
 
 .header {
-  padding: 3px 0 0 2px;
-  width: 760px;
+  padding: 3px 10px;
+  max-width: 760px;
+  min-width: 680px;
   margin: 0 auto;
 }
 
@@ -142,20 +143,24 @@ img.avatar { border: 1px solid #ddd; }
 
 #main {
 	font-size: 1.2em;
-    line-height: 1.3em;
-	width: 760px;
+	line-height: 1.3em;
+	max-width: 760px;
+	min-width: 680px;
 	margin: 15px auto 25px;
 	position: relative;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .bbcrumb_bar {
   background: url(images/breadcrumb_bg.png) center top repeat-x;
   background-color: #eee;  
-  width: 100%;  
   height: 35px;
   line-height: 35px;
   border-top: 1px solid #efefef ;
   border-bottom: 1px solid #d5d5d5;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .bbcrumb {
@@ -172,24 +177,26 @@ h3.bbcrumb {
 .bbcrumb_container {
   color: #888;
   margin: 0 auto;
-  width: 760px;
+  max-width: 760px;
+  min-width: 680px;
   font-size: 1.2em;
 }
 
 #footer {	
-	font-style: italic;
-	border-top: 1px solid #ccc;
 	margin: auto;
-	color: #666;
-	font-size: 1.0em;
-	padding-top: 10px;
 	clear: both;
-	text-align: right;
-	width: 760px;
+	max-width: 760px;
+	min-width: 680px;
+	padding: 10px;
 }
 
-#footer p.showoff {
-	color: #888;
+#footer p {
+	border-top: 1px solid #ccc;
+	color: #666;
+	font-size: 1.0em;
+	font-style: italic;
+	text-align: right;
+	padding-top: 0.5em;
 }
 
 .notice {
@@ -216,7 +223,6 @@ h3.bbcrumb {
   position: relative; /* to receive clicks! */
   z-index: 100;  
   float: right;
-  padding: 3px 0;
   border: 1px solid #ccc;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -338,12 +344,12 @@ form.login input#remember {
 
 #front-page #hottags {
 	float: left;
-	width: 760px;
+	width: 100%;
 	overflow: hidden;
 }
 
 #front-page #discussions {
-	width: 760px;
+	width: 100%;
 }
 
 .frontpageheatmap {
