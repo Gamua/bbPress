@@ -48,8 +48,7 @@ else // sparrow
   $piwik_id = 4;
 }
 
-$header_style = "background-color: " . $header_color . "; " . 
-                "background-image: url(" . $image_folder . "/header_bg.jpg);";
+$header_style = "background-color: " . $header_color . "; ";
 $logo_style   = "background-image: url(" . $image_folder . "/header_logo.png);";
 
 // ******
@@ -86,12 +85,11 @@ $logo_style   = "background-image: url(" . $image_folder . "/header_logo.png);";
 	  <div class="stylehead" style="<?php echo $header_style ?>">
       <div class="header_row">
         <div class="header">
-          <a href="<?php bb_uri(); ?>">
+          <!-- <p class="login" .../> -->
+          <span><?php if (!in_array( bb_get_location(), array('login-page', 'register-page'))) login_form(); ?></span>
             <div class="logo" style="<?php echo $logo_style ?>">
-              <h1><?php bb_option('name'); ?></h1>
+              <h1><a href="<?php bb_uri(); ?>"><?php bb_option('name'); ?></a></h1>
             </div>
-          </a>
-          <?php if (!in_array( bb_get_location(), array('login-page', 'register-page'))) login_form(); ?>
         </div>
       </div>
     </div>
