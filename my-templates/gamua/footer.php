@@ -2,18 +2,6 @@
 	</div>
 	<div id="footer" role="contentinfo">
         <p><?php printf("<a href='http://gamua.com'>Gamua</a> - Consistent Game Development across all Platforms") ?></p>
-
-		<!-- If you like showing off the fact that your server rocks -->
-		<!-- <p class="showoff">
-<?php
-global $bbdb;
-printf(
-__( 'This page generated in %s seconds, using %d queries.' ),
-bb_number_format_i18n( bb_timer_stop(), 2 ),
-bb_number_format_i18n( $bbdb->num_queries )
-);
-?>
-		</p> -->
 	</div>
 
 <?php do_action('bb_foot'); ?>
@@ -31,7 +19,17 @@ bb_number_format_i18n( $bbdb->num_queries )
         s.parentNode.insertBefore(autolink, s);
     })();
 </script>
-<!-- <?php echo 'Page rendered with PHP ' . phpversion(); ?> -->
+
+<!--
+<?php
+global $bbdb;
+printf("Page rendered with PHP " . phpversion() . ".\n");
+printf("Generated in %s seconds, using %d queries.\n",
+    bb_number_format_i18n( bb_timer_stop(), 2),
+    bb_number_format_i18n( $bbdb->num_queries)
+);
+?>
+-->
 
 </body>
 </html>

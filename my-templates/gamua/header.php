@@ -13,8 +13,12 @@ if ( bb_is_profile() ) {
 	<meta http-equiv="X-UA-Compatible" content="IE=8" />
 	<meta name="google-site-verification" content="9mnrTPsE6rw-r6mFmLc1Fkf0wbcCeLtuKrNoLwZ3qRk" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=790">
-	<title><?php bb_title() ?></title>
+		
+  <!-- <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes"> -->
+  <meta name="viewport" content="width=device-width" />
+
+
+  <title><?php bb_title() ?></title>
 	<link rel="shortcut icon" href="<?php bb_option('uri'); ?>favicon.ico" type="image/vnd.microsoft.icon" />
 	<link rel="stylesheet" href="<?php bb_stylesheet_uri(); ?>" type="text/css" />
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400|Ubuntu:400,500,700|Ubuntu+Condensed" type="text/css">
@@ -48,8 +52,7 @@ else // sparrow
   $piwik_id = 4;
 }
 
-$header_style = "background-color: " . $header_color . "; " . 
-                "background-image: url(" . $image_folder . "/header_bg.jpg);";
+$header_style = "background-color: " . $header_color . "; ";
 $logo_style   = "background-image: url(" . $image_folder . "/header_logo.png);";
 
 // ******
@@ -86,20 +89,21 @@ $logo_style   = "background-image: url(" . $image_folder . "/header_logo.png);";
 	  <div class="stylehead" style="<?php echo $header_style ?>">
       <div class="header_row">
         <div class="header">
-          <a href="<?php bb_uri(); ?>">
+          <span><?php if (!in_array( bb_get_location(), array('login-page', 'register-page'))) login_form(); ?></span>
             <div class="logo" style="<?php echo $logo_style ?>">
-              <h1><?php bb_option('name'); ?></h1>
+              <h1 class="resp-rem"><a href="<?php bb_uri(); ?>"><?php bb_option('name'); ?></a></h1>
             </div>
-          </a>
-          <?php if (!in_array( bb_get_location(), array('login-page', 'register-page'))) login_form(); ?>
         </div>
       </div>
     </div>
     
     <div class="bbcrumb_bar">
-      <div class="bbcrumb_container">
-        <div class="search">
+      <div class="bbcrumb_container"> 
+        <div class="search resp-rem">
           <?php search_form(); ?>
+        </div>
+        <div class="search-button resp-add">
+          <a href="/search.php"><img src="<?php echo(bb_get_active_theme_uri() . "images/search_icon.png") ?>"/></a>
         </div>
       </div>
     </div>

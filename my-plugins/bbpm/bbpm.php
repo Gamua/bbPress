@@ -1062,7 +1062,6 @@ INDEX ( `pm_to` , `pm_from`, `reply_to` )
 	 */
 	function post_title_filter( $text, $post_id = 0 ) {
 		if ( $post_id && ( $user_id = get_post_author_id( $post_id ) ) && bb_current_user_can( 'write_posts' ) ) {
-			$text .= "<br/>\n";
 			$text .= '<a href="' . $this->get_send_link( $user_id ) . '">' . __( 'PM this user', 'bbpm' ) . '</a>';
 		}
 		return $text;

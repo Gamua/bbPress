@@ -1,5 +1,5 @@
 <?php bb_get_header(); ?>
-<div class="bbcrumb"><a href="<?php bb_uri(); ?>"><?php bb_option('name'); ?></a> &raquo; <?php _e('Search')?></div>
+<div class="bbcrumb"><a href="<?php bb_uri(); ?>">Start</a> &raquo; <?php _e('Search')?></div>
 
 <br/>
 <br/>

@@ -1,6 +1,6 @@
 <?php bb_get_header(); ?>
 
-<div class="bbcrumb"><a href="<?php bb_uri(); ?>"><?php bb_option('name'); ?></a> &raquo; <a href="<?php user_profile_link( $user_id ); ?>"><?php echo get_user_display_name( $user_id ); ?></a> &raquo; <?php _e('Favorites'); ?></div>
+<div class="bbcrumb"><a href="<?php bb_uri(); ?>">Start</a> &raquo; <a href="<?php user_profile_link( $user_id ); ?>"><?php echo get_user_display_name( $user_id ); ?></a> &raquo; <?php _e('Favorites'); ?></div>
 
 <h2 id="userlogin" role="main"><?php echo get_user_display_name( $user->ID ); ?> <small>(<?php echo get_user_name( $user->ID ); ?>)</small> <?php _e( 'favorites' ); ?><?php if ( $topics ) printf( __( ' - %d' ), $favorites_total ); ?></h2>
 
@@ -13,22 +13,21 @@
 
 <table id="favorites">
 <tr>
-	<th><?php _e('Topic'); ?></th>
-	<th><?php _e('Posts'); ?></th>
-	<!-- <th><?php _e('Voices'); ?></th> -->
-	<th><?php _e('Last Poster'); ?></th>
-	<th><?php _e('Freshness'); ?></th>
+	<th class="col-topic"><?php _e('Topic'); ?></th>
+	<th class="col-posts  resp-rem"><?php _e('Posts'); ?></th>
+	<th class="col-poster resp-rem"><?php _e('Last Poster'); ?></th>
+	<th class="col-activity"><?php _e('Activity'); ?></th>
 <?php if ( bb_current_user_can( 'edit_favorites_of', $user_id ) ) : ?>
-	<th><?php _e('Remove'); ?></th>
+	<th class="col-remove"><?php _e('Remove'); ?></th>
 <?php endif; ?>
 </tr>
 
 <?php foreach ( $topics as $topic ) : ?>
 <tr<?php topic_class(); ?>>
 	<td><?php bb_topic_labels(); ?> <a href="<?php topic_link(); ?>"><?php topic_title(); ?></a></td>
-	<td class="num"><?php topic_posts(); ?></td>
+	<td class="num resp-rem"><?php topic_posts(); ?></td>
 	<!-- <td class="num"><?php bb_topic_voices(); ?></td> -->
-	<td class="num"><?php topic_last_poster(); ?></td>
+	<td class="num resp-rem"><?php topic_last_poster(); ?></td>
 	<td class="num"><a href="<?php topic_last_post_link(); ?>"><?php topic_time(); ?></a></td>
 <?php if ( bb_current_user_can( 'edit_favorites_of', $user_id ) ) : ?>
 	<td class="num">[<?php user_favorites_link('', array('mid'=>'&times;'), $user_id); ?>]</td>

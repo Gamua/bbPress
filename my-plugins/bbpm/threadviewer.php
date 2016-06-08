@@ -44,7 +44,7 @@ add_filter( 'get_post_author_id', array( &$bbpm, 'post_author_id_filter' ) );
 </ul>
 </div>
 
-<div id="topic-tags">
+<div id="topic-tags" class="resp-rem">
 <p><?php _e( 'Members', 'bbpm' ); ?>:</p>
 
 <ul>
