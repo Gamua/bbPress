@@ -10,12 +10,10 @@ if ( bb_is_profile() ) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"<?php bb_language_attributes( '1.1' ); ?>>
 <head<?php echo $_head_profile_attr; ?>>
-	<meta http-equiv="X-UA-Compatible" content="IE=8" />
 	<meta name="google-site-verification" content="9mnrTPsE6rw-r6mFmLc1Fkf0wbcCeLtuKrNoLwZ3qRk" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width" />
 	<title><?php bb_title() ?></title>
-	<script type="text/javascript" src="<?php echo bb_get_active_theme_uri() ?>js/respond.min.js"></script>
 	<link rel="shortcut icon" href="<?php bb_option('uri'); ?>favicon.ico" type="image/vnd.microsoft.icon" />
 	<link rel="stylesheet" href="<?php bb_stylesheet_uri(); ?>" type="text/css" />
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400|Ubuntu:400,500,700|Ubuntu+Condensed" type="text/css">
