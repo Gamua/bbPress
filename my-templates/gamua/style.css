@@ -23,7 +23,7 @@ a:hover { color: #3cb4f3; }
 
 .alt { background-color: #fff; }
 
-pre, code { 
+pre, code {
     font: 0.9em Monaco, 'Courier New', monospace;
     -moz-tab-size: 4;
     -o-tab-size:   4;
@@ -32,7 +32,10 @@ pre, code {
 
 pre, p { margin-bottom: 1.1em; }
 
-input, textarea { font-size: 0.9em; }
+input, textarea {
+	font-size: 0.9em;
+	font-family: Monaco, 'Courier New', monospace;
+}
 
 .post > pre { 
     color: rgb(17, 0, 0);
@@ -632,7 +635,6 @@ h2.post-form {
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	font-family: Monaco, 'Courier New', monospace;
 	box-sizing: border-box;
 }
 
