@@ -13,19 +13,15 @@ if ( bb_is_profile() ) {
 	<meta http-equiv="X-UA-Compatible" content="IE=8" />
 	<meta name="google-site-verification" content="9mnrTPsE6rw-r6mFmLc1Fkf0wbcCeLtuKrNoLwZ3qRk" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		
-  <!-- <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes"> -->
-  <meta name="viewport" content="width=device-width" />
-
-
-  <title><?php bb_title() ?></title>
+	<meta name="viewport" content="width=device-width" />
+	<title><?php bb_title() ?></title>
+	<script type="text/javascript" src="<?php echo bb_get_active_theme_uri() ?>js/respond.min.js"></script>
 	<link rel="shortcut icon" href="<?php bb_option('uri'); ?>favicon.ico" type="image/vnd.microsoft.icon" />
 	<link rel="stylesheet" href="<?php bb_stylesheet_uri(); ?>" type="text/css" />
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400|Ubuntu:400,500,700|Ubuntu+Condensed" type="text/css">
-<?php if ( 'rtl' == bb_get_option( 'text_direction' ) ) : ?>
+	<?php if ( 'rtl' == bb_get_option( 'text_direction' ) ) : ?>
 	<link rel="stylesheet" href="<?php bb_stylesheet_uri( 'rtl' ); ?>" type="text/css" />
-<?php endif; ?>
-
+	<?php endif; ?>
 <?php
 
 bb_feed_head();
