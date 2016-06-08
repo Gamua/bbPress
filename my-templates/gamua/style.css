@@ -15,6 +15,7 @@ Author URI:
 body {
 	margin-bottom: 50px;
 	font: 0.9em "Ubuntu", Helvetica, Arial, Sans-Serif;
+	-webkit-text-size-adjust: 100%;
 }
 
 a { color: #06a0f0; text-decoration: none; }
@@ -85,7 +86,7 @@ img.avatar { border: 1px solid #ddd; }
 .header_row {
   height: 93px;
   max-width: 760px;
-  min-width: 540px;
+  min-width: 320px;
   margin: 0 auto;
   padding: 0 15px;
 }
@@ -135,7 +136,7 @@ img.avatar { border: 1px solid #ddd; }
 #main {
 	line-height: 1.3em;
 	max-width: 760px;
-	min-width: 540px;
+	min-width: 320px;
 	margin: 15px auto 25px;
 	position: relative;
 	padding-left: 15px;
@@ -156,21 +157,28 @@ img.avatar { border: 1px solid #ddd; }
 .bbcrumb {
   padding: 3px 0 20px;
   margin-top: -45px;
-  width: 600px;
+	text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap
 }
 
 .bbcrumb_container {
   color: #888;
   margin: 0 auto;
   max-width: 760px;
-  min-width: 540px;
+  min-width: 320px;
+}
+
+h3.bbcrumb { 
+	font-size: 100%;
+	font-weight: normal;
 }
 
 #footer {	
 	margin: auto;
 	clear: both;
 	max-width: 760px;
-	min-width: 540px;
+/*	min-width: 320px;*/
 	padding: 15px;
 }
 
@@ -337,8 +345,8 @@ form.login input#remember {
 #front-page #main h2, #forum-page #main h2, h2.post-form, #userlogin, #currentfavorites, #register, #passwordrecovery {
 	color: #555;
 	border-bottom: 1px solid #ddd;
-	margin: 0 0 10px;
-	padding: 0 0 5px;
+	margin: 20px 0 10px;
+	line-height: 2em;
 }
 
 #front-page #discussions ul { padding: 0 0 0 14px; }
@@ -483,17 +491,22 @@ input#tagformsub:active {
 
 .threadauthor {
 	float: left;
-	padding: 1em 1em 0 1em;
-	width: 120px;
+	padding-top: 1em;
+	width: 110px;
 }
 
-.threadauthor p { margin: 0; }
+.threadauthor p { 
+	margin: 0; 
+	text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap
+}
 
 .threadauthor small { font-size: 11px; }
 
 .threadpost {
-	padding: 1.5em 1.5em;
-	margin-left: 140px;
+	padding: 1em;
+	margin-left: 120px;
 	background-color: #eee;
 	-moz-border-radius: 8px;
 	-khtml-border-radius: 8px;
@@ -592,7 +605,6 @@ input#tagformsub:active {
 
 .num {
 	text-align: center;
-	white-space: nowrap;
 }
 
 h2.post-form {
@@ -714,7 +726,6 @@ a.rss-link {
 #latest tr:hover, #forumlist tr:hover, #favorites tr:hover { background-color: #eee; }
 
 #latest th, #forumlist th, #favorites th {
-	text-align: left;
 	background-color: rgb(102, 102, 102);
 	font-weight: normal;
 	padding: 5px 9px;
@@ -737,6 +748,7 @@ tr.bb-category td {
 #latest, #forumlist, #favorites {
 	background-color: #f7f7f7;
 	width: 100%;
+	table-layout: fixed;
 }
 
 #latest, #forumlist, #favorites, #viewdiv {
@@ -755,7 +767,8 @@ tr.bb-category td {
 	list-style: none;
 	position: absolute;
 	right: 0;
-	margin-top: 34px;
+	margin-top: 33px;
+	margin-right: 15px;
 }
 
 #profile-menu li {
@@ -787,7 +800,7 @@ tr.bb-category td {
 
 #useravatar { margin-bottom: 1em; }
 
-#useravatar img { display: block; border-width: 3px; border-style: double; }
+#useravatar img { display: block; }
 
 #userinfo { margin-top: 10px; }
 
@@ -861,15 +874,18 @@ tr.bb-category td {
 /* Login, Register, Profile Edit
 =================================== */
 
+#profile-page fieldset {
+	border-top: 1px solid #ccc;
+}
+
 #login-page fieldset,
 #register-page fieldset,
 #profile-page fieldset {
-	border-top: 3px double #ccc;
-	border-bottom: 1px solid #ccc;
 	border-left: none;
 	border-right: none;
-	padding: 10px 0 10px 10px;
-	margin-bottom: 15px;
+	padding: 10px 0;
+	margin-top: 25px;
+	margin-bottom: 10px;
 	background-color: #f6f6f6;
 }
 
@@ -1019,6 +1035,25 @@ p.submit input:active {
 	border-color: rgb(50, 50, 50);
 }
 
+/* tables */
+
+.col-topic    { width: 60%; text-align: left; }
+.col-posts    { width:  8%; }
+.col-poster   { width: 20%; word-wrap: break-word; }
+.col-activity { width: 12%; }
+
+.col-theme  { width: 65%; text-align: left; }
+.col-topics { width: 17.5%; }
+.col-total  { width: 17.5%; }
+
+#favorites .col-topic  { width: 48%; }
+#favorites .col-remove { width: 12%; }
+
+.messages .col-topic    { width: 45%; }
+.messages .col-members  { width: 20%; }
+.messages .col-activity { width: 15%; }
+.messages .col-actions  { width: 20%; }
+
 /* Google custom search */
 
 div.gsc-control-cse.gsc-control-cse-en {
@@ -1033,4 +1068,65 @@ table.gsc-table-result div.gs-per-result-labels a.gs-label {
   text-decoration: none;
   font-weight: bold;
   color: #7f7f7f;
+}
+
+/* --------  Responsive styles  ----------- */
+
+.topic-info {
+	font-size: 80%;
+	color: #7f7f7f;
+}
+
+.search-button {
+	position: relative; /* to receive clicks! */
+  z-index: 10;
+  float: right;
+  padding: 5px;
+}
+
+.threadauthor-horiz-left {
+	float: left;
+	width: 58px;
+	height: 65px;
+}
+
+.threadauthor-horiz-center {
+	float: left;
+	width: 40%;
+	height: 65px;
+	text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap
+}
+
+.threadauthor-horiz-right {
+	text-align: right;
+	height: 65px;
+	overflow: hidden;
+}
+
+@media only screen and (max-width: 640px) {
+  body {
+    /*color: red;*/
+  }
+
+	.resp-rem { display: none; }
+  .header .logo { width: 120px; }
+
+	.col-topic    { width: 75%; word-wrap: break-word; }
+	.col-activity { width: 25%; }
+
+	#favorites .col-topic    { width: 60%; }
+	#favorites .col-activity { width: 20%; }
+	#favorites .col-remove   { width: 20%; }
+
+	.threadpost {
+		margin-left: 0;
+	}
+}
+
+@media only screen and (min-width: 640px) {
+	.resp-add {
+		display: none;
+	}
 }

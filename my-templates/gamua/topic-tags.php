@@ -1,4 +1,4 @@
-<div id="topic-tags">
+<div id="topic-tags" class="resp-rem">
 <p><?php _e('Tags:'); ?></p>
 
 <?php if ( bb_get_topic_tags() ) : ?>

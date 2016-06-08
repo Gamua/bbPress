@@ -32,7 +32,7 @@ bb_enqueue_script( 'jquery' );
 
 bb_get_header(); ?>
 
-<h3 class="bbcrumb"><a href="<?php option('uri'); ?>"><?php option('name'); ?></a> &raquo; 
+<h3 class="bbcrumb"><a href="<?php option('uri'); ?>">Start</a> &raquo; 
 
 <?php switch ( $get ) {
 	case 'new': ?><a href="<?php echo $bbpm->get_link(); ?>"><?php _e( 'Private Messages', 'bbpm' ); ?></a> &raquo; <?php _e( 'New', 'bbpm' ); ?></h3>
@@ -144,12 +144,12 @@ jQuery(function($){
 _e( 'Private Messages', 'bbpm' ); ?></h3>
 
 <h2><?php _e( 'Private Messages', 'bbpm' ); ?> <?php if ( $get == 'page' && $action > 1 ) printf( __( '(Page %s)', 'bbpm' ), bb_number_format_i18n( $action ) ); ?></h2>
-<table id="latest">
+<table id="latest" class="messages">
 <tr>
-	<th><?php _e( 'Subject', 'bbpm' ); ?> &#8212; <a href="<?php $bbpm->new_pm_link(); ?>"><?php _e( 'New &raquo;', 'bbpm' ); ?></a></th>
-	<th><?php _e( 'Members', 'bbpm' ); ?></th>
-	<th><?php _e( 'Freshness' ); ?></th>
-	<th><?php _e( 'Actions', 'bbpm' ); ?></th>
+	<th class="col-topic"><?php _e( 'Subject', 'bbpm' ); ?> &#8212; <a href="<?php $bbpm->new_pm_link(); ?>"><?php _e( 'New &raquo;', 'bbpm' ); ?></a></th>
+	<th class="col-members resp-rem"><?php _e( 'Members', 'bbpm' ); ?></th>
+	<th class="col-activity"><?php _e( 'Activity' ); ?></th>
+	<th class="col-actions resp-rem"><?php _e( 'Actions', 'bbpm' ); ?></th>
 </tr>
 
 <?php while ( $bbpm->have_pm( bb_get_option( 'page_topics' ) * max( $action - 1, 0 ), bb_get_option( 'page_topics' ) * max( $action, 1 ) ) ) { ?>
@@ -159,7 +159,7 @@ _e( 'Private Messages', 'bbpm' ); ?></h3>
 	echo esc_html( $bbpm->the_pm['title'] );
 	$bbpm->thread_read_after();
 ?></a></td>
-	<td><?php
+	<td class="resp-rem"><?php
 
 $first = true;
 $last_message = new bbPM_Message($bbpm->the_pm['last_message']);
@@ -176,8 +176,8 @@ foreach ( $bbpm->the_pm['members'] as $member ) {
 }
 
 ?></td>
-	<td><span title="<?php echo($full_time); ?>"><?php $bbpm->thread_freshness(); ?></span></td>
-	<td><a href="<?php $bbpm->thread_unsubscribe_url(); ?>"><?php _e( 'Unsubscribe', 'bbpm' ); ?></a></td>
+	<td class="num"><span title="<?php echo($full_time); ?>"><?php $bbpm->thread_freshness(); ?></span></td>
+	<td class="num resp-rem"><a href="<?php $bbpm->thread_unsubscribe_url(); ?>"><?php _e( 'Unsubscribe', 'bbpm' ); ?></a></td>
 </tr>
 <?php } ?>
 </table>

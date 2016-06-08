@@ -145,7 +145,7 @@ function registration_form()
 
 	echo '<fieldset>';
 	echo ' <legend>Please prove that you are worthy!</legend>';
-	echo ' <p>As protection against spammers, we need you to prove that you are somewhat proficient in the topic of this forum. Sorry for this inconvenience! <br/>Having problems? <a href="http://gamua.com">Contact us</a> and we will create an account for you.<br/></p>';
+	echo ' <p>As protection against spammers, we need you to convince this script that you are human. Having problems? <a href="http://gamua.com">Contact us</a> and we will create an account for you.</p>';
 	echo ' <p><strong>' . $questions[$question_id][0] . '</strong></p>';
 	echo ' <table width="100%">';
 	echo '  <tr class="form-field form-required required">';
