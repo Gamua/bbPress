@@ -89,7 +89,7 @@ img.avatar { border: 1px solid #ddd; }
 .header_row {
   height: 93px;
   max-width: 760px;
-  min-width: 320px;
+  min-width: 290px;
   margin: 0 auto;
   padding: 0 15px;
 }
@@ -139,7 +139,7 @@ img.avatar { border: 1px solid #ddd; }
 #main {
 	line-height: 1.3em;
 	max-width: 760px;
-	min-width: 320px;
+	min-width: 290px;
 	margin: 15px auto 25px;
 	position: relative;
 	padding-left: 15px;
@@ -169,7 +169,7 @@ img.avatar { border: 1px solid #ddd; }
   color: #888;
   margin: 0 auto;
   max-width: 760px;
-  min-width: 320px;
+  min-width: 290px;
 }
 
 h3.bbcrumb { 
@@ -181,7 +181,7 @@ h3.bbcrumb {
 	margin: auto;
 	clear: both;
 	max-width: 760px;
-/*	min-width: 320px;*/
+	min-width: 290px;
 	padding: 15px;
 }
 
