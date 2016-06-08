@@ -749,6 +749,7 @@ tr.bb-category td {
 	background-color: #f7f7f7;
 	width: 100%;
 	table-layout: fixed;
+	border-collapse: collapse;
 }
 
 #latest, #forumlist, #favorites, #viewdiv {
