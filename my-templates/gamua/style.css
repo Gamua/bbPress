@@ -751,7 +751,8 @@ tr.bb-category td {
 	background-color: #f7f7f7;
 	width: 100%;
 	table-layout: fixed;
-	border-collapse: collapse;
+	border-collapse:separate;
+	border-spacing:0 2px;;
 }
 
 #latest, #forumlist, #favorites, #viewdiv {
@@ -1040,10 +1041,10 @@ p.submit input:active {
 
 /* tables */
 
-.col-topic    { width: 60%; text-align: left; }
+.col-topic    { width: 57%; text-align: left; }
 .col-posts    { width:  8%; }
 .col-poster   { width: 20%; word-wrap: break-word; }
-.col-activity { width: 12%; }
+.col-activity { width: 15%; }
 
 .col-theme  { width: 65%; text-align: left; }
 .col-topics { width: 17.5%; }
