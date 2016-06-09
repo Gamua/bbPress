@@ -145,9 +145,11 @@ function bb_get_stylesheet_uri( $stylesheet = '' )
 	}
 
 	$active_theme = bb_get_active_theme_directory();
+	$stylesheet_path = $active_theme . $css_file;
 
-	if ( file_exists( $active_theme . $css_file ) ) {
-		$r = bb_get_active_theme_uri() . $css_file;
+	if ( file_exists($stylesheet_path) ) {
+		$version = filemtime($stylesheet_path);
+		$r = bb_get_active_theme_uri() . $css_file . '?v=' . $version;
 	} else {
 		$r = BB_DEFAULT_THEME_URL . $css_file;
 	}
