@@ -161,39 +161,26 @@ foreach ( $messagechain as $i => $the_pm ) { ?>
 
 ?>>
 
-<div class="threadauthor">
-<?php
-
-	if ( $the_pm->from->user_url )
-		echo '<a href="' . attribute_escape( $the_pm->from->user_url ) . '">';
-
-	echo bb_get_avatar( $the_pm->from->ID, 48 );
-
-	if ( $the_pm->from->user_url )
-		echo '</a>';
-
-?>
-	<p>
-		<strong><?php 
-
-if ( $the_pm->from->user_url )
-	echo '<a href="' . esc_url( $the_pm->from->user_url ) . '">';
-
-echo apply_filters( 'post_author', apply_filters( 'get_post_author', empty( $the_pm->from->display_name ) ? $the_pm->from->data->user_login : $the_pm->from->display_name, $the_pm->from->ID ) );
-
-if ( $the_pm->from->user_url )
-	echo '</a>';
-
-?></strong><br />
-		<small><?php
-
-$title = get_user_title( $the_pm->from->ID );
-echo apply_filters( 'post_author_title_link', apply_filters( 'get_post_author_title_link', '<a href="' . get_user_profile_link( $the_pm->from->ID ) . '">' . $title . '</a>', 0 ), 0 );
-
-?></small>
+<div class="threadauthor resp-rem">
+	<?php echo bb_get_avatar( $the_pm->from->ID, 48 ); ?>
+	<p><strong><?php echo apply_filters( 'post_author', apply_filters( 'get_post_author', empty( $the_pm->from->display_name ) ? $the_pm->from->data->user_login : $the_pm->from->display_name, $the_pm->from->ID ) );?></strong><br />
+		<small>
+			<?php
+				$title = get_user_title( $the_pm->from->ID );
+				echo apply_filters( 'post_author_title_link', apply_filters( 'get_post_author_title_link', '<a href="' . get_user_profile_link( $the_pm->from->ID ) . '">' . $title . '</a>', 0 ), 0 );
+			?>
+		</small>
 	</p>
 </div>
 <div class="threadpost">
+	<div class="threadauthor-horiz resp-add">
+		<div class="threadauthor-horiz-left"><?php echo bb_get_avatar( $the_pm->from->ID, 48 ); ?></div>
+		<div class="threadauthor-horiz-center"><strong><?php echo apply_filters( 'post_author', apply_filters( 'get_post_author', empty( $the_pm->from->display_name ) ? $the_pm->from->data->user_login : $the_pm->from->display_name, $the_pm->from->ID ) );?></strong></div>
+		<div class="threadauthor-horiz-right"><?php
+			$title = get_user_title( $the_pm->from->ID );
+			echo apply_filters( 'post_author_title_link', apply_filters( 'get_post_author_title_link', '<a href="' . get_user_profile_link( $the_pm->from->ID ) . '">' . $title . '</a>', 0 ), 0 );
+		?></div>
+	</div>
 	<div class="edit_post" style="display:none;">
 		<form method="post" action="<?php echo BB_PLUGIN_URL . basename( dirname( __FILE__ ) ) . '/edit.php'; ?>" style="padding-left:0px; padding-top:0px; padding-bottom:0px;">
 			<?php
