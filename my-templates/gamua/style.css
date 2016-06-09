@@ -349,7 +349,7 @@ form.login input#remember {
 	color: #555;
 	border-bottom: 1px solid #ddd;
 	margin: 20px 0 10px;
-	line-height: 2em;
+	line-height: 1.3em;
 }
 
 #front-page #discussions ul { padding: 0 0 0 14px; }
