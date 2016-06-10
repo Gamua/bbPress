@@ -95,7 +95,7 @@ function registration_validation()
 		}
 	}
 
-	if (!empty($log)) write_registration_log($log);
+	// if (!empty($log)) write_registration_log($log);
 	if ($abort) exit;
 }
 
