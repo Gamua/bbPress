@@ -424,12 +424,16 @@ a.next.page-numbers:hover {
 #topic-info {
 	float: left;
 	padding: 0 1em 0 0;
+	box-sizing: border-box;
+	width: calc(100% - 240px);
 }
 
 #topic-tags {
 	border-left: 1px solid #ccc;
 	float: right;
 	padding: 0 0 0 1em;
+	box-sizing: border-box;
+	width: 240px;
 }
 
 #tag-form p {
@@ -1126,6 +1130,8 @@ table.gsc-table-result div.gs-per-result-labels a.gs-label {
 	#favorites .col-topic    { width: 60%; }
 	#favorites .col-activity { width: 20%; }
 	#favorites .col-remove   { width: 20%; }
+
+	#topic-info { width: 100%; }
 
 	.threadpost {
 		margin-left: 0;
