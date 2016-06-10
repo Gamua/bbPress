@@ -47,7 +47,7 @@ else // sparrow
 }
 
 $header_style = "background-color: " . $header_color . "; ";
-$logo_style   = "background-image: url(" . $image_folder . "/header_logo.png);";
+$logo_path = $image_folder . "/header_logo.png";
 
 // ******
 
@@ -55,7 +55,7 @@ $logo_style   = "background-image: url(" . $image_folder . "/header_logo.png);";
 
 </head>
 <body id="<?php bb_location(); ?>">
-	
+
   <!-- Piwik Analytics -->
   <script type="text/javascript">
     var _paq = _paq || [];
@@ -79,20 +79,23 @@ $logo_style   = "background-image: url(" . $image_folder . "/header_logo.png);";
   </script>
 
   <div id="wrapper">
-		
+
 	  <div class="stylehead" style="<?php echo $header_style ?>">
       <div class="header_row">
         <div class="header">
           <span><?php if (!in_array( bb_get_location(), array('login-page', 'register-page'))) login_form(); ?></span>
-            <div class="logo" style="<?php echo $logo_style ?>">
-              <h1 class="resp-rem"><a href="<?php bb_uri(); ?>"><?php bb_option('name'); ?></a></h1>
-            </div>
+          <div class="logo">
+            <a href="<?php bb_uri(); ?>">
+              <h1 class="resp-rem"><?php bb_option('name'); ?></h1>
+              <img src="<?php echo $logo_path ?>" />
+            </a>
+          </div>
         </div>
       </div>
     </div>
-    
+
     <div class="bbcrumb_bar">
-      <div class="bbcrumb_container"> 
+      <div class="bbcrumb_container">
         <div class="search resp-rem">
           <?php search_form(); ?>
         </div>
@@ -101,7 +104,7 @@ $logo_style   = "background-image: url(" . $image_folder . "/header_logo.png);";
         </div>
       </div>
     </div>
-	
+
 		<div id="main">
 
 <?php if ( bb_is_profile() ) profile_menu(); ?>

@@ -112,14 +112,17 @@ img.avatar { border: 1px solid #ddd; }
 }
 
 .header .logo {
-  /* background-image: --> now in header.php */
   background-repeat: no-repeat;
   background-position: bottom right;
   width: 340px;
-  height: 93px;
   display: table-cell;
   white-space: nowrap;
   position: relative;
+}
+
+.header img {
+	float: right;
+	margin-top: -3px;
 }
 
 .header .logo a {
