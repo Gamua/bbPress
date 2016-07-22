@@ -5,10 +5,10 @@ class BB_Walker {
 	var $db_fields;
 
 	//abstract callbacks
-	function start_lvl($output) { return $output; }
-	function end_lvl($output)   { return $output; }
-	function start_el($output)  { return $output; }
-	function end_el($output)    { return $output; }
+	function start_lvl(&$output) { return $output; }
+	function end_lvl(&$output)   { return $output; }
+	function start_el(&$output)  { return $output; }
+	function end_el(&$output)    { return $output; }
 
 	function _init() {
 		$this->parents = array();
@@ -127,7 +127,7 @@ class BB_Walker_Blank extends BB_Walker { // Used for template functions
 	var $end_lvl   = '';
 
 	//abstract callbacks
-	function start_lvl( $output, $depth ) { 
+	function start_lvl( &$output, $depth ) { 
 		if ( !$this->start_lvl )
 			return '';
 		$indent = str_repeat("\t", $depth);
@@ -135,7 +135,7 @@ class BB_Walker_Blank extends BB_Walker { // Used for template functions
 		return $output;
 	}
 
-	function end_lvl( $output, $depth )   {
+	function end_lvl( &$output, $depth )   {
 		if ( !$this->end_lvl )
 			return '';
 		$indent = str_repeat("\t", $depth);
