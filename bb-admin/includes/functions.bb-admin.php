@@ -1257,19 +1257,19 @@ class BB_Walker_ForumAdminlistitems extends BB_Walker {
 	var $tree_type = 'forum';
 	var $db_fields = array ('parent' => 'forum_parent', 'id' => 'forum_id'); //TODO: decouple this
 	
-	function start_lvl($output, $depth) {
+	function start_lvl(&$output, $depth) {
 		$indent = str_repeat("\t", $depth) . '    ';
 		$output .= $indent . "<ul id='forum-root-$this->forum_id' class='list-block holder'>\n";
 		return $output;
 	}
 	
-	function end_lvl($output, $depth) {
+	function end_lvl(&$output, $depth) {
 		$indent = str_repeat("\t", $depth) . '    ';
 		$output .= $indent . "</ul>\n";
 		return $output;
 	}
 	
-	function start_el($output, $forum, $depth) {
+	function start_el(&$output, $forum, $depth) {
 		$this->forum_id = $forum->forum_id;
 		$indent = str_repeat("\t", $depth + 1);
 		$output .= $indent . "<li id='forum-$this->forum_id'" . get_alt_class( 'forum', 'forum clear list-block' ) . ">\n";
@@ -1277,7 +1277,7 @@ class BB_Walker_ForumAdminlistitems extends BB_Walker {
 		return $output;
 	}
 	
-	function end_el($output, $forum, $depth) {
+	function end_el(&$output, $forum, $depth) {
 		$indent = str_repeat("\t", $depth + 1);
 		$output .= $indent . "</li>\n";
 		return $output;
