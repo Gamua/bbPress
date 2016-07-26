@@ -732,10 +732,20 @@ a.rss-link {
 	padding-left: 2.5ex;
 }
 
+#latest .new-topic {
+	padding: 8px 10px;
+	background-color: #333;
+	line-height: 30px;
+	border-radius: 20px;
+	margin-left: 2px;
+}
+
+#latest .new-topic:hover { background-color: #444; }
+
 #latest tr:hover, #forumlist tr:hover, #favorites tr:hover { background-color: #eee; }
 
 #latest th, #forumlist th, #favorites th {
-	background-color: rgb(102, 102, 102);
+	background-color: #808080;
 	font-weight: normal;
 	padding: 5px 9px;
 	color: rgb(255, 255, 255);
@@ -1064,6 +1074,8 @@ p.submit input:active {
 .messages .col-members  { width: 20%; }
 .messages .col-activity { width: 15%; }
 .messages .col-actions  { width: 20%; }
+
+#discussions table tr { line-height: 1.5em; }
 
 /* Google custom search */
 
