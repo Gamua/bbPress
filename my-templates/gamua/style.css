@@ -4,10 +4,10 @@ Theme URI: http://www.gamua.com
 Description: A theme for the Gamua game frameworks, auto-adjusting slightly for each framework. Modify "header.php" to add support for new variants.
 Version: 1.0
 Author: <a href="http://www.gamua.com">Daniel Sperl</a> on a base from <a href="http://avalonstar.com">Bryan Veloso</a>.
-Author URI: 
+Author URI:
 */
 
-/* Globals 
+/* Globals
 =================================== */
 
 * { margin: 0; padding: 0; }
@@ -37,7 +37,7 @@ input, textarea {
 	font-family: Monaco, 'Courier New', monospace;
 }
 
-.post > pre { 
+.post > pre {
     color: rgb(17, 0, 0);
     background-color: rgb(249, 249, 249);
     overflow-x: auto;
@@ -78,7 +78,7 @@ img.avatar { border: 1px solid #ddd; }
 /* Structure
 =================================== */
 
-#wrapper {	
+#wrapper {
 }
 
 .stylehead {
@@ -104,7 +104,7 @@ img.avatar { border: 1px solid #ddd; }
 	position: relative;
 }
 
-.header span p { 
+.header span p {
   color: #eee;
   width: 100%;
   position: absolute;
@@ -127,7 +127,7 @@ img.avatar { border: 1px solid #ddd; }
 
 .header .logo a {
   color: #fff !important;
-  text-decoration: none !important;  
+  text-decoration: none !important;
 }
 
 .header .logo h1 {
@@ -151,7 +151,7 @@ img.avatar { border: 1px solid #ddd; }
 
 .bbcrumb_bar {
   background: url(images/breadcrumb_bg.png) center top repeat-x;
-  background-color: #eee;  
+  background-color: #eee;
   height: 35px;
   line-height: 35px;
   border-top: 1px solid #efefef ;
@@ -175,12 +175,12 @@ img.avatar { border: 1px solid #ddd; }
   min-width: 290px;
 }
 
-h3.bbcrumb { 
+h3.bbcrumb {
 	font-size: 100%;
 	font-weight: normal;
 }
 
-#footer {	
+#footer {
 	margin: auto;
 	clear: both;
 	max-width: 760px;
@@ -217,7 +217,7 @@ h3.bbcrumb {
 
 .search {
   position: relative; /* to receive clicks! */
-  z-index: 100;  
+  z-index: 100;
   float: right;
   border: 1px solid #ccc;
   -moz-border-radius: 5px;
@@ -233,9 +233,9 @@ h3.bbcrumb {
   line-height: 0;
 }
 
-.search input.submit {  
+.search input.submit {
   color: transparent;
-  padding: 0 0 0 22px !important; /* Fix for Internet Explorer */ 
+  padding: 0 0 0 22px !important; /* Fix for Internet Explorer */
   background: transparent url(images/search_icon.png) no-repeat center;
   border: none;
   overflow: hidden;
@@ -473,8 +473,7 @@ input#tagformsub:active {
 }
 
 .nav {
-	margin: 15px 0;
-	padding: 12px 0;
+	padding: 5px 0;
 	text-align: center;
 }
 
@@ -489,9 +488,9 @@ input#tagformsub:active {
 	clear: both;
 }
 
-#thread li ol, #thread li ul 
-{ 
-    margin-left: 40px; 
+#thread li ol, #thread li ul
+{
+    margin-left: 40px;
     margin-bottom: 1.1em;
 }
 
@@ -505,8 +504,8 @@ input#tagformsub:active {
 	width: 110px;
 }
 
-.threadauthor p { 
-	margin: 0; 
+.threadauthor p {
+	margin: 0;
 	text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap
@@ -773,11 +772,10 @@ tr.bb-category td {
 }
 
 #latest, #forumlist, #favorites, #viewdiv {
-	margin-bottom: 3em;
+	margin-bottom: 1em;
 }
 
 #discussions .nav {
-	margin-top: -2em;
 	margin-bottom: 1em;
 }
 
@@ -827,7 +825,7 @@ tr.bb-category td {
 
 #userinfo dt { font-weight: bold; }
 
-#userinfo dd { margin: 0 0 5px; } 
+#userinfo dd { margin: 0 0 5px; }
 
 #useractivity { margin: 15px 0 5px; }
 

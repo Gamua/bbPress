@@ -16,12 +16,12 @@ if (bb_get_forum_is_category())
     $forum_ids_joined = implode(",", $forum_ids);
     $topic_query = new BB_Query('topic', array('forum_id' => $forum_ids_joined,'per_page' => 30,'page' => $page));
     $topics = $topic_query->results;
-    $topics_count = $bbdb->get_var('SELECT COUNT(`topic_id`) FROM `' . $bbdb->topics . 
+    $topics_count = $bbdb->get_var('SELECT COUNT(`topic_id`) FROM `' . $bbdb->topics .
         '` WHERE `topic_status` = 0 AND `forum_id` IN (' . $forum_ids_joined . ');');
-    
+
     if ($pages = get_page_number_links($page, $topics_count))
         $page_switcher = '<div class="nav">' . $pages . '</div>';
-} 
+}
 
 // ---------------------------------------------------------------------------------------- ?>
 
@@ -47,7 +47,7 @@ if (bb_get_forum_is_category())
 <?php if ( $topics ) : foreach ( $topics as $topic ) : ?>
 <tr<?php topic_class(); ?>>
 	<td><?php bb_topic_labels(); ?> <a href="<?php topic_link(); ?>"><?php topic_title(); ?></a><?php topic_page_links(); ?>
-		<?php 
+		<?php
 			$numPosts = get_topic_posts();
 			$lastPoster = get_topic_last_poster();
 			$topicInfo = $numPosts == 1 ? "by " . $lastPoster :
@@ -61,10 +61,10 @@ if (bb_get_forum_is_category())
 </tr>
 <?php endforeach; endif; ?>
 </table>
-<!--
+
 <p class="rss-link"><a href="<?php bb_forum_posts_rss_link(); ?>" class="rss-link"><?php _e('<abbr title="Really Simple Syndication">RSS</abbr> feed for this forum'); ?></a></p>
--->
-<?php 
+
+<?php
 
     if ($page_switcher === "")
         forum_pages( array( 'before' => '<div class="nav">', 'after' => '</div>' ) );
