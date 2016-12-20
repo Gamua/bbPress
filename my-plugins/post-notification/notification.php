@@ -15,15 +15,17 @@ function notification_new_post($post_id=0) {
 	foreach ($all_users as $userdata) :
 		if ( notification_is_activated( $userdata->ID ) ) :
 			if ( is_user_favorite( $userdata->ID, $topic_id ) ) :
-				//$topic = get_topic($topic_id);
+				$sender_email = bb_get_user_email($bb_current_user->ID);
 				$user_email = $userdata->user_email;
-				$subject = bb_get_option('name') . ': ' . __('Notification');
-				$headers = 'From: ' . bb_get_option('name') . ' <' . bb_get_option('from_email') . '>';
-				$message = sprintf(
-					"The user \"%s\" just added a new post on the topic \"%s\":\n\n%s%s",
-					get_user_name($bb_current_user->ID), get_topic_title($topic_id),
-					strip_tags(get_post_text($post_id)), get_topic_link($topic_id));
-				bb_mail( $user_email, $subject, $message, $headers);
+				if ($sender_email !== $user_email) :
+					$subject = bb_get_option('name') . ': ' . __('Notification');
+					$headers = 'From: ' . bb_get_option('name') . ' <' . bb_get_option('from_email') . '>';
+					$message = sprintf(
+						"The user \"%s\" just added a new post on the topic \"%s\":\n\n%s%s",
+						get_user_name($bb_current_user->ID), get_topic_title($topic_id),
+						strip_tags(get_post_text($post_id)), get_topic_link($topic_id));
+					bb_mail( $user_email, $subject, $message, $headers);
+				endif;
 			endif;
 		endif;
 	endforeach;
