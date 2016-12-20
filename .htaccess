@@ -1,5 +1,5 @@
 <FilesMatch \.php$>
-   SetHandler php55-cgi
+   SetHandler php56-cgi
 </FilesMatch>
 
 # Turn on Expires and set default to 0
