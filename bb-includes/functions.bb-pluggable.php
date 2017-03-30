@@ -65,14 +65,14 @@ function bb_check_login($user, $pass, $already_md5 = false) {
 
 	if ( is_wp_error($user) )
 		return $user;
-	
+
 	if ( !bb_check_password($pass, $user->user_pass, $user->ID) )
 		return false;
 
 	// User is logging in for the first time, update their user_status to normal
 	if ( 1 == $user->user_status )
 		bb_update_user_status( $user->ID, 0 );
-	
+
 	return $user;
 }
 endif;
@@ -88,9 +88,9 @@ if ( !function_exists('bb_set_current_user') ) :
 function bb_set_current_user( $id ) {
 	global $wp_auth_object;
 	$current_user = $wp_auth_object->set_current_user( $id );
-	
+
 	do_action('bb_set_current_user', isset($current_user->ID) ? $current_user->ID : 0 );
-	
+
 	return $current_user;
 }
 endif;
@@ -117,7 +117,7 @@ function bb_is_user_logged_in() {
 
 	if ( empty($current_user) )
 		return false;
-	
+
 	return true;
 }
 endif;
@@ -129,7 +129,7 @@ function bb_login( $login, $password, $remember = false ) {
 		bb_set_auth_cookie( $user->ID, $remember );
 		do_action('bb_user_login', (int) $user->ID );
 	}
-	
+
 	return $user;
 }
 endif;
@@ -137,7 +137,7 @@ endif;
 if ( !function_exists('bb_logout') ) :
 function bb_logout() {
 	bb_clear_auth_cookie();
-	
+
 	do_action('bb_user_logout');
 }
 endif;
@@ -157,7 +157,7 @@ function bb_validate_auth_cookie( $cookie = '', $scheme = 'auth' ) {
 endif;
 
 if ( !function_exists( 'bb_set_auth_cookie' ) ) :
-function bb_set_auth_cookie( $user_id, $remember = false, $schemes = false ) {
+function bb_set_auth_cookie( $user_id, $remember = false, $schemes = true ) {
 	global $wp_auth_object;
 
 	if ( $remember ) {
@@ -190,13 +190,13 @@ endif;
 if ( !function_exists('bb_clear_auth_cookie') ) :
 function bb_clear_auth_cookie() {
 	global $bb, $wp_auth_object;
-	
+
 	$wp_auth_object->clear_auth_cookie();
-	
+
 	// Old cookies
 	setcookie($bb->authcookie, ' ', time() - 31536000, $bb->cookiepath, $bb->cookiedomain);
 	setcookie($bb->authcookie, ' ', time() - 31536000, $bb->sitecookiepath, $bb->cookiedomain);
-	
+
 	// Even older cookies
 	setcookie($bb->usercookie, ' ', time() - 31536000, $bb->cookiepath, $bb->cookiedomain);
 	setcookie($bb->usercookie, ' ', time() - 31536000, $bb->sitecookiepath, $bb->cookiedomain);
@@ -367,7 +367,7 @@ function bb_create_nonce($action = -1) {
 	$uid = (int) $user->ID;
 
 	$i = bb_nonce_tick();
-	
+
 	return substr(bb_hash($i . $action . $uid, 'nonce'), -12, 10);
 }
 endif;
@@ -459,7 +459,7 @@ function bb_salt( $scheme = 'auth' )
 endif;
 
 if ( !function_exists( 'bb_hash' ) ) :
-function bb_hash( $data, $scheme = 'auth' ) { 
+function bb_hash( $data, $scheme = 'auth' ) {
 	$salt = bb_salt( $scheme );
 
 	return hash_hmac( 'md5', $data, $salt );
@@ -589,19 +589,19 @@ function bb_new_user( $user_login, $user_email, $user_url, $user_status = 1 ) {
 
 	if ( !$user_login = sanitize_user( $user_login, true ) )
 		return new WP_Error( 'user_login', __( 'Invalid username' ), $user_login );
-	
+
 	// user_status = 1 means the user has not yet been verified
 	$user_status = is_numeric($user_status) ? (int) $user_status : 1;
 	if ( defined( 'BB_INSTALLING' ) )
 		$user_status = 0;
-	
+
 	$user_nicename = $_user_nicename = bb_user_nicename_sanitize( $user_login );
 	if ( strlen( $_user_nicename ) < 1 )
 		return new WP_Error( 'user_login', __( 'Invalid username' ), $user_login );
 
 	while ( is_numeric($user_nicename) || $existing_user = bb_get_user_by_nicename( $user_nicename ) )
 		$user_nicename = bb_slug_increment($_user_nicename, $existing_user->user_nicename, 50);
-	
+
 	$user_url = $user_url ? bb_fix_link( $user_url ) : '';
 
 	$user_pass = bb_generate_password();
