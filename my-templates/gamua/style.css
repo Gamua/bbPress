@@ -24,7 +24,7 @@ a:hover { color: #3cb4f3; }
 .alt { background-color: #fff; }
 
 pre, code {
-    font: 0.9em Monaco, 'Courier New', monospace;
+    font: 0.9em Monaco, Consolas, 'Courier New', monospace;
     -moz-tab-size: 4;
     -o-tab-size:   4;
     tab-size:      4;
@@ -34,7 +34,7 @@ pre, p { margin-bottom: 1.1em; }
 
 input, textarea {
 	font-size: 0.9em;
-	font-family: Monaco, 'Courier New', monospace;
+	font-family: Monaco, Consolas, 'Courier New', monospace;
 }
 
 .post > pre {
